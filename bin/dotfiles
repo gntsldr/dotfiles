@@ -108,7 +108,7 @@ function debian_setup() {
   fi
   if ! pip3 list | grep watchdog >/dev/null 2>&1; then
     _task "Installing Python3 Watchdog"
-    _cmd "pip3 install watchdog"
+    _cmd "pip3 install watchdog --break-system-packages"
   fi
 }
 
@@ -130,7 +130,7 @@ function fedora_setup() {
   fi
   if ! pip3 list | grep watchdog >/dev/null 2>&1; then
     _task "Installing Python3 Watchdog"
-    _cmd "pip3 install watchdog"
+    _cmd "pip3 install watchdog --break-system-packages"
   fi
 }
 
@@ -153,7 +153,7 @@ function rocky_setup() {
   fi
   if ! pip3 list | grep watchdog >/dev/null 2>&1; then
     _task "Installing Python3 Watchdog"
-    _cmd "pip3 install watchdog"
+    _cmd "pip3 install watchdog --break-system-packages"
   fi
 }
 
