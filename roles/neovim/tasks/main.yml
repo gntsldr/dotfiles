@@ -15,7 +15,7 @@
 
 - name: Neovim | Remove previous Neovim installation
   ansible.builtin.file:
-    path: /opt/nvim-linux64/
+    path: /opt/nvim-linux64
     state: absent
     recurse: true
 
