@@ -18,3 +18,4 @@
     cmd: "update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 100"
     creates: /usr/bin/vim
   become: true
+  
