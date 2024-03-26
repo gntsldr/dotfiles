@@ -3,6 +3,8 @@
   ansible.builtin.apt:
     update_cache: true
     upgrade: full
+    autoremove: true
+    autoclean: true
   become: true
 
 - name: System | Install | {{ ansible_distribution }}
@@ -19,9 +21,4 @@
       - micro
     state: present
     update_cache: true
-  become: true
-
-- name: System | Remove dependencies that are no longer required | {{ ansible_distribution }}
-  ansible.builtin.apt:
-    autoremove: true
   become: true
