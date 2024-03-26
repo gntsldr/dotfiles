@@ -1,0 +1,14 @@
+---
+- name: Neovim | Uninstall vim | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - vim
+    state: absent
+  become: true
+
+- name: Neovim | Install Neovim | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - neovim
+    state: present
+  become: true

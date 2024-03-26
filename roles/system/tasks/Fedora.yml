@@ -21,10 +21,12 @@
       - micro
     state: present
     update_cache: true
+  become: true
 
 - name: Remove dependencies that are no longer required
   ansible.builtin.dnf:
     autoremove: true
+  become: true
 
 - name: Ensures zsh-autosuggestions directory exists
   ansible.builtin.file:
