@@ -1,6 +1,5 @@
 # .dotfiles
 
----
 Fully automated development environment heavily influence by [TechDufus](https://github.com/TechDufus/dotfiles)' repo, which was in turn heavily influenced by [ALT-F4-LLC](https://github.com/ALT-F4-LLC/dotfiles)'s repo.
 
 
