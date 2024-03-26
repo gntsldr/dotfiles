@@ -25,8 +25,10 @@ This Ansible playbook only supports `Debian|Ubuntu|Fedora|Rocky|Arch` distributi
 Verify your `Debian|Ubuntu|Fedora|Rocky|Arch` installation has all latest packages installed before running the playbook.
 
 ```
-# Ubuntu
+# Debian | Ubuntu
 sudo apt-get update && sudo apt-get upgrade -y
+# Fedora | Rocky
+sudo dnf upgrade -y 
 # Arch
 sudo pacman -Syu
 ```
@@ -54,7 +56,7 @@ Below is a list of all available values. Not all are required but incorrect valu
 
 #### Environment
 
-Manage environment variables by configuring the `bash_public` and `bash_private` values in `values.yaml`. See both values usecase below.
+Manage environment variables by configuring the `bash_public` and `bash_private` values in `all.yaml`. See both values usecase below.
 
 ##### bash_public
 
@@ -86,7 +88,7 @@ bash_private:
 
 ### SSH Keys
 
-Manage SSH keys by setting the `ssh_key` value in `values.yaml` shown as example below:
+Manage SSH keys by setting the `ssh_key` value in `all.yaml` shown as example below:
 
 ```yaml
 
@@ -105,7 +107,7 @@ ssh_key:
 
 ### System Hosts
 
-Manage `/etc/hosts` by setting the `system_host` value in `values.yaml`.
+Manage `/etc/hosts` by setting the `system_host` value in `all.yaml`.
 
 ```yaml
 
@@ -116,7 +118,7 @@ system_host:
 
 ### Examples
 
-Below includes minimal and advanced configuration examples. If you would like to see a more real world example take a look at [my public configuration](https://gitlab.com/gntsldr/dotfiles/-/blob/main/group_vars/all.yml) repository.
+Below includes minimal and advanced configuration examples. If you would like to see a more real world example, take a look at [my public configuration](https://gitlab.com/gntsldr/dotfiles/-/blob/main/group_vars/all.yml) repository.
 
 #### Minimal
 
@@ -167,10 +169,15 @@ The `vault.secret` file allows you to encrypt values with `Ansible vault` and st
 vim ~/.ansible-vault/vault.secret
 ```
 
-To then encrypt values with your vault password use the following:
+To then encrypt values with your vault password, use the following:
 
 ```bash
 $ ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret "mynewsecret" --name "MY_SECRET_VAR"
+```
+
+To encrypt a file with your vault password, use the following:
+
+```bash
 $ cat myfile.conf | ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret --stdin-name "myfile"
 ```
 
@@ -210,10 +217,10 @@ This will handle the following tasks:
 - Verify Ansible is up-to-date
 - Generate SSH keys and add to `~/.ssh/authorized_keys`
 - Clone this repository locally to `~/.dotfiles`
-- Verify any `ansible-galaxy` plugins are updated
-- Run this playbook with the values in `~/.dotfiles/group_vars/all.yaml`
+- Verify `ansible-galaxy` plugins are updated
+- Run the playbook with the values in `~/.dotfiles/group_vars/all.yaml`
 
-This `dotfiles` command is available to you after the first use of this repo, as it adds this repo's `bin` directory to your path, allowing you to call `dotfiles` from anywhere.
+The `dotfiles` command is available to you after the first use of this repo, as it adds this repo's `bin` directory to your path, allowing you to call `dotfiles` from anywhere.
 
 Any flags or arguments you pass to the `dotfiles` command are passed as-is to the `ansible-playbook` command.
 
