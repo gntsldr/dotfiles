@@ -1,0 +1,17 @@
+- name: micro | Ensures {{ ansible_user_dir }}/.config/micro exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/micro"
+    state: directory
+    mode: '755'
+    
+- name: "micro | Copy settings.json"
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/settings.json"
+    dest: "{{ ansible_user_dir }}/.config/micro/settings.json"
+    mode: '644'
+
+- name: "micro | Copy bindings.json"
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/bindings.json"
+    dest: "{{ ansible_user_dir }}/.config/micro/bindings.json"
+    mode: '644'

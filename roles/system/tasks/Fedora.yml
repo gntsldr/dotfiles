@@ -1,0 +1,39 @@
+---
+- name: System | Update DNF Repos and Upgrade DNF Packages| {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name: '*'
+    update_cache: true
+    update_only: true
+    state: latest
+    autoremove: true
+  become: true
+
+- name: System | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - sudo
+      - openssh-server
+      - qemu-guest-agent
+      - zsh
+      - git
+      - curl
+      - wget
+      - micro
+    state: present
+    update_cache: true
+
+- name: Remove dependencies that are no longer required
+  ansible.builtin.dnf:
+    autoremove: true
+
+- name: Ensures zsh-autosuggestions directory exists
+  ansible.builtin.file:
+    path: /usr/share/zsh-autosuggestions/
+    state: directory
+    mode: '755'
+
+- name: Download zsh-autosuggestions
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh
+    dest: /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    mode: '644'

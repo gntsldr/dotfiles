@@ -1,0 +1,48 @@
+---
+- name: System | Update DNF Repos and Upgrade DNF Packages | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name: '*'
+    update_cache: true
+    update_only: true
+    state: latest
+  become: true
+
+- name: System | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - sudo
+      - openssh-server
+      - qemu-guest-agent
+      - zsh
+      - git
+      - curl
+      - wget
+    state: present
+    update_cache: true
+  become: true
+
+- name: System | Remove dependencies that are no longer required
+  ansible.builtin.dnf:
+    autoremove: true
+  become: true
+
+- name: System | Ensures zsh-autosuggestions directory exists
+  ansible.builtin.file:
+    path: /usr/share/zsh-autosuggestions/
+    state: directory
+    mode: '755'
+  become: true
+
+- name: System | Install zsh-autosuggestions
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh
+    dest: /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    mode: '644'
+  become: true
+
+- name: System | Install micro
+  ansible.builtin.shell:
+    cmd: "curl https://getmic.ro | bash"
+    chdir: /usr/bin
+    creates: /usr/bin/micro     
+  become: true 

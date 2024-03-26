@@ -1,0 +1,51 @@
+---
+- name: Fonts | Download Cascadia Code archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/CascadiaCode.tar.xz
+
+- name: Fonts | Extract Cascadia Code archive
+  ansible.builtin.unarchive:
+    src: /tmp/CascadiaCode.tar.xz
+    dest: /usr/share/fonts/cascadia-code
+    remote_src: yes
+    creates: /usr/share/fonts/cascadiacode/CaskaydiaCoveNerdFont-Regular.ttf
+
+- name: Fonts | Remove Cascadia Code archive
+  ansible.builtin.file:
+    path: /tmp/CascadiaCode.tar.xz
+    state: absent
+
+- name: Fonts | Download Cascadia Mono archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/CascadiaMono.tar.xz
+
+- name: Fonts | Extract Cascadia Mono archive
+  ansible.builtin.unarchive:
+    src: /tmp/CascadiaMono.tar.xz
+    dest: /usr/share/fonts/cascadia-mono
+    remote_src: yes
+    creates: /usr/share/fonts/cascadiamono/CaskaydiaMonoNerdFont-Regular.ttf
+
+- name: Fonts | Remove Cascadia Mono archive
+  ansible.builtin.file:
+    path: /tmp/CascadiaMono.tar.xz
+    state: absent
+
+- name: Fonts | Download JetBrains Mono archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/JetBrainsMono.tar.xz
+
+- name: Fonts | Extract JetBrains Mono archive
+  ansible.builtin.unarchive:
+    src: /tmp/JetBrainsMono.tar.xz
+    dest: /usr/share/fonts/jetbrains-mono
+    remote_src: yes
+    creates: /usr/share/fonts/jetbrainsmono/JetBrainsMonoNerdFont-Regular.ttf
+
+- name: Fonts | Remove JetBrains Mono archive
+  ansible.builtin.file:
+    path: /tmp/JetBrainsMono.tar.xz
+    state: absent

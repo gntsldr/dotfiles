@@ -1,0 +1,24 @@
+---
+- name: System | Update APT Repos and Upgrade APT Packages| {{ ansible_distribution }}
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
+    autoremove: true
+    autoclean: true
+  become: true
+
+- name: System | Install | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - sudo
+      - ssh
+      - qemu-guest-agent
+      - zsh
+      - zsh-autosuggestions
+      - git
+      - curl
+      - wget
+      - micro
+    state: present
+    update_cache: true
+  become: true

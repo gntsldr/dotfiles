@@ -1,0 +1,5 @@
+- name: "nano | Copy .nanorc"
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/.nanorc"
+    dest: "{{ ansible_user_dir }}/.nanorc"
+    mode: '644'
