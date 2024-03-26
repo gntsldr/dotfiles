@@ -1,0 +1,7 @@
+---
+- name: micro | Install | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - micro
+    state: present
+  become: true

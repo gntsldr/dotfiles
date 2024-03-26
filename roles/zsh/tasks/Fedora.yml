@@ -1,0 +1,21 @@
+---
+- name: Zsh | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - zsh
+    state: present
+  become: true
+
+- name: Zsh | Ensures zsh-autosuggestions directory exists | {{ ansible_distribution }}
+  ansible.builtin.file:
+    path: /usr/share/zsh-autosuggestions/
+    state: directory
+    mode: '755'
+  become: true
+
+- name: Zsh | Install zsh-autosuggestions | {{ ansible_distribution }}
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh
+    dest: /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    mode: '644'
+  become: true

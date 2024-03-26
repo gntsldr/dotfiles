@@ -13,7 +13,6 @@
       - sudo
       - openssh-server
       - qemu-guest-agent
-      - zsh
       - git
       - curl
       - wget
@@ -25,24 +24,3 @@
   ansible.builtin.dnf:
     autoremove: true
   become: true
-
-- name: System | Ensures zsh-autosuggestions directory exists
-  ansible.builtin.file:
-    path: /usr/share/zsh-autosuggestions/
-    state: directory
-    mode: '755'
-  become: true
-
-- name: System | Install zsh-autosuggestions
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh
-    dest: /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    mode: '644'
-  become: true
-
-- name: System | Install micro
-  ansible.builtin.shell:
-    cmd: "curl https://getmic.ro | bash"
-    chdir: /usr/bin
-    creates: /usr/bin/micro     
-  become: true 

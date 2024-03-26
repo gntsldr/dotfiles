@@ -1,12 +1,14 @@
 ---
-- name: "Neovim | Uninstall vim | {{ ansible_distribution }}"
+- name: Neovim | Uninstall vim | {{ ansible_distribution }}
   ansible.builtin.apt:
-    name: vim
+    name:
+      - vim
     state: absent
   become: true
 
-- name: "Neovim | Install Neovim | {{ ansible_distribution }}"
+- name: Neovim | Install Neovim | {{ ansible_distribution }}
   ansible.builtin.apt:
-    name: neovim
+    name:
+      - neovim
     state: present
   become: true

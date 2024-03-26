@@ -1,0 +1,8 @@
+---
+- name: System | Install | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - zsh
+      - zsh-autosuggestions
+    state: present
+  become: true

@@ -1,0 +1,8 @@
+---
+- name: "System | Install | {{ ansible_distribution }}"
+  community.general.pacman:
+    name:
+      - zsh
+      - zsh-autosuggestions
+    state: present
+  become: true

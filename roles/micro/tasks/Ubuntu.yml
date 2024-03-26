@@ -1,0 +1,7 @@
+---
+- name: micro | Install | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - micro
+    state: present
+  become: true
