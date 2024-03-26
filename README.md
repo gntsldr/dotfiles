@@ -1,93 +1,224 @@
-# dotfiles
+# .dotfiles
+
+---
+Fully automated development environment heavily influence by [TechDufus](https://github.com/TechDufus/dotfiles)' repo, which was in turn heavily influenced by [ALT-F4-LLC](https://github.com/ALT-F4-LLC/dotfiles)'s repo.
 
 
+Please go check out their repos as they are much more talented than I am!
 
-## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Goals
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Provide fully automated development environment that is easy to set up and maintain.
 
-## Add your files
+### Why Ansible?
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Ansible replicates what we would do to set up a development environment pretty well. There are many automation solutions out there - I happen to enjoy using Ansible.
+
+## Requirements
+
+### Operating System
+
+This Ansible playbook only supports `Debian|Ubuntu|Fedora|Rocky|Arch` distribution. This is by design to provide a consistent development experience across hosts.
+
+### System Upgrade
+
+Verify your `Debian|Ubuntu|Fedora|Rocky|Arch` installation has all latest packages installed before running the playbook.
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/gntsldr/dotfiles.git
-git branch -M main
-git push -uf origin main
+# Ubuntu
+sudo apt-get update && sudo apt-get upgrade -y
+# Arch
+sudo pacman -Syu
 ```
 
-## Integrate with your tools
+> NOTE: This will take some time.
 
-- [ ] [Set up project integrations](https://gitlab.com/gntsldr/dotfiles/-/settings/integrations)
+## Setup
 
-## Collaborate with your team
+### all.yaml values file
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+The `all.yaml` file allows you to personalize your setup to your needs. This file will be created in the file located at `~/.dotfiles/group_vars/all.yaml` after you [Install this dotfiles](#install) and include your desired settings.
 
-## Test and Deploy
+Below is a list of all available values. Not all are required but incorrect values will break the playbook if not properly set.
 
-Use the built-in continuous integration in GitLab.
+| Name                  | Type                                | Required |
+| --------------------- | ----------------------------------- | -------- |
+| git_user_email        | string                              | yes      |
+| git_user_name         | string                              | yes      |
+| exclude_roles         | array `(see group_vars/all)`        | no       |
+| ssh_key               | dict `(see SSH Keys below)`         | no       |
+| system_host           | dict `(see System Hosts below)`     | no       |
+| bash_public           | dict `(see Environment below)`      | no       |
+| bash_private          | dict `(see Environment below)`      | no       |
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-***
+#### Environment
 
-# Editing this README
+Manage environment variables by configuring the `bash_public` and `bash_private` values in `values.yaml`. See both values usecase below.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+##### bash_public
 
-## Suggestions for a good README
+The `bash_public` value allows you to include a dictionary of generic and unsecure key-value pairs that will be stored in a `~/.bash_public`.
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```yaml
 
-## Name
-Choose a self-explaining name for your project.
+---
+bash_public:
+  MY_ENV_VAR: something
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+#### bash_private
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+The `bash_private` value allows you to include a dictionary of secure key-value pairs that will be stored in a `~/.bash_private`.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+```yaml
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+---
+bash_private:
+  MY_ENV_VAR_SECRET: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    62333533626436313366316235626561626635396233303730343332666466393561346462303163
+    3666636638613437353663356563656537323136646137630a336332303030323031376164316562
+    65333963633339323382938472963766303966643035303234376163616239663539366564396166
+    3830376265316231630a623834333061393138306331653164626437623337366165636163306237
+    3437
+```
+
+### SSH Keys
+
+Manage SSH keys by setting the `ssh_key` value in `values.yaml` shown as example below:
+
+```yaml
+
+---
+ssh_key:
+  <filename>: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    62333533626436313366316235626561626635396233303730343332666466393561346462303163
+    3666636638613437483928376563656537323136646137630a336332303030323031376164316562
+    65333963633339323762663865363766303966643035303234376163616239663539366564396166
+    3830376265316231630a623834333061393138306331653164626437623337366165636163306237
+    3437
+```
+
+> NOTE: All ssh keys will be stored at `$HOME/.ssh/<filename>`.
+
+### System Hosts
+
+Manage `/etc/hosts` by setting the `system_host` value in `values.yaml`.
+
+```yaml
+
+---
+system_host:
+  127.0.0.1: foobar.localhost
+```
+
+### Examples
+
+Below includes minimal and advanced configuration examples. If you would like to see a more real world example take a look at [blackglasses public configuration](https://github.com/TechDufus/dotfiles-erikreinert) repository.
+
+#### Minimal
+
+Below is a minimal example of `values.yaml` file:
+
+```yaml
+---
+git_user_email: foo@bar.com
+git_user_name: Foo Bar
+```
+
+#### Advanced
+
+Below is a more advanced example of `values.yaml` file:
+
+```yaml
+---
+git_user_email: foo@bar.com
+git_user_name: Foo Bar
+exclude_roles:
+  - slack
+ssh_key: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  62333533626436313366316235626561626635396233303730343332666466393561346462303163
+  3666636638613437353663356563656537323136646137630a336332303030323031376164316562
+  65333963633339323762663865363766303966643035303234376163616239663539366564396166
+  3830376265316231630a623834333061393138306331653164626437623337366165636163306237
+  3437
+system_host:
+  127.0.0.1: foobar.localhost
+bash_public:
+  MY_PUBLIC_VAR: foobar
+bash_private:
+  MY_SECRET_VAR: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    62333533626436313366316235626561626635396233303730343332666466393561346462303163
+    3666636638613437353663356563656537323136646137630a336332303030323031376164316562
+    65333963633339323762663865363766303966643035303234376163616239663539366564396166
+    3830376265316231630a623834333061393138306331653164626437623337366165636163306237
+    3437
+```
+
+### vault.secret
+
+The `vault.secret` file allows you to encrypt values with `Ansible vault` and store them securely in source control. Create a file located at `~/.ansible-vault/vault.secret` with a secure password in it.
+
+```bash
+vim ~/.ansible-vault/vault.secret
+```
+
+To then encrypt values with your vault password use the following:
+
+```bash
+$ ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret "mynewsecret" --name "MY_SECRET_VAR"
+$ cat myfile.conf | ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret --stdin-name "myfile"
+```
+
+> NOTE: This file will automatically be detected by the playbook when running `dotfiles` command to decrypt values. Read more on Ansible Vault [here](https://docs.ansible.com/ansible/latest/user_guide/vault.html).
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Install
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+This playbook includes a custom shell script located at `bin/dotfiles`. This script is added to your $PATH after installation and can be run multiple times while making sure any Ansible dependencies are installed and updated.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+This shell script is also used to initialize your environment after installing `Debian|Ubuntu|Fedora|Rocky|Arch` and performing a full system upgrade as mentioned above.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+> NOTE: You must follow required steps before running this command or things may become unusable until fixed.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+```bash
+bash -c "$(curl -fsSL https://gitlab.com/gntsldr/dotfiles/-/raw/main/bin/dotfiles)"
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+If you want to run only a specific role, you can specify the following bash command:
+```bash
+curl -fsSL https://gitlab.com/gntsldr/dotfiles/-/raw/main/bin/dotfiles | bash -s -- --tags comma,seperated,tags
+```
 
-## License
-For open source projects, say how it is licensed.
+### Update
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This repository is continuously updated with new features and settings which become available to you when updating.
+
+To update your environment run the `dotfiles` command in your shell:
+
+```bash
+dotfiles
+```
+
+This will handle the following tasks:
+
+- Verify Ansible is up-to-date
+- Generate SSH keys and add to `~/.ssh/authorized_keys`
+- Clone this repository locally to `~/.dotfiles`
+- Verify any `ansible-galaxy` plugins are updated
+- Run this playbook with the values in `~/.dotfiles/group_vars/all.yaml`
+
+This `dotfiles` command is available to you after the first use of this repo, as it adds this repo's `bin` directory to your path, allowing you to call `dotfiles` from anywhere.
+
+Any flags or arguments you pass to the `dotfiles` command are passed as-is to the `ansible-playbook` command.
+
+For Example: Running the tmux tag with verbosity
+```bash
+dotfiles -t tmux -vvv
+```
