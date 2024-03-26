@@ -1,3 +1,4 @@
 .dotfiles_run
 vault.secret
 /callback_plugins/__pycache__
+lazy-lock.json
