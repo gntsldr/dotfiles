@@ -24,3 +24,4 @@
 - name: System | Remove dependencies that are no longer required | {{ ansible_distribution }}
   ansible.builtin.apt:
     autoremove: true
+  become: true
