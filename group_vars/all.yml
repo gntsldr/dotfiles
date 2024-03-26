@@ -6,6 +6,7 @@ default_roles:
   - git
   - micro
   - nano
+  - neovim
   - ssh
   - starship
   - zsh
