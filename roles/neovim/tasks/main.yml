@@ -22,7 +22,6 @@
   ansible.builtin.file:
     path: /opt/nvim-linux64
     state: absent
-    recurse: true
   become: true
   when: nvim_folder.stat.exists
 
