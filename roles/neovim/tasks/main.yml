@@ -30,6 +30,7 @@
   ansible.builtin.unarchive:
     source: /tmp/nvim-linux64.tar.gz
     dest: /opt
+    remote_src: true
     creates: /opt/nvim-linux64/bin/nvim
   become: true
 
