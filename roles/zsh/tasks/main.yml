@@ -14,13 +14,13 @@
     shell: /bin/zsh
   become: true
 
-- name: "Zsh | Copy .zshrc"
+- name: Zsh | Copy .zshrc
   ansible.builtin.copy:
     src: "{{ role_path }}/files/.zshrc"
     dest: "{{ ansible_user_dir }}/.zshrc"
     mode: '644'
   
-- name: "Zsh | Copy .zshenv"
+- name: Zsh | Copy .zshenv
   ansible.builtin.copy:
     src: "{{ role_path }}/files/.zshenv"
     dest: "{{ ansible_user_dir }}/.zshenv"

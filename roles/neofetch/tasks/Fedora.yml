@@ -1,0 +1,7 @@
+---
+- name: Neofetch | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - neofetch
+    state: present
+  become: true

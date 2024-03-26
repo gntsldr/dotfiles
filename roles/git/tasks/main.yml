@@ -1,3 +1,4 @@
+---
 - name: "Git | Set user.name"
   community.general.git_config:
     name: user.name

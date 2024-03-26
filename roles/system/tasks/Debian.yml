@@ -13,12 +13,9 @@
       - sudo
       - ssh
       - qemu-guest-agent
-      - zsh
-      - zsh-autosuggestions
       - git
       - curl
       - wget
-      - micro
     state: present
     update_cache: true
   become: true

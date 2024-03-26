@@ -1,3 +1,4 @@
+---
 - name: Starship | Download Starship installer
   ansible.builtin.get_url:
     url: https://starship.rs/install.sh

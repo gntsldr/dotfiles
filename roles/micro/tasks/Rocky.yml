@@ -1,5 +1,5 @@
 ---
-- name: System | Install micro
+- name: micro | Install micro | {{ ansible_distribution }}
   ansible.builtin.shell:
     cmd: "curl https://getmic.ro | bash"
     chdir: /usr/bin
