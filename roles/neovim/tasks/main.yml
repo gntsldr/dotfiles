@@ -18,6 +18,7 @@
     path: /opt/nvim-linux64
     state: absent
     recurse: true
+  ignore_errors: true
 
 - name: Neovim | Extract Neovim from tarball
   ansible.builtin.unarchive:
