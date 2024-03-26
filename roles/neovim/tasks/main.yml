@@ -28,10 +28,10 @@
 
 - name: Neovim | Extract Neovim from tarball
   ansible.builtin.unarchive:
-    source: /tmp/nvim-linux64.tar.gz
+    src: /tmp/nvim-linux64.tar.gz
     dest: /opt
-    remote_src: true
     creates: /opt/nvim-linux64/bin/nvim
+    remote_src: true
   become: true
 
 - name: Neovim | Remove Neovim tarball
