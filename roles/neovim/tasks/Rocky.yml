@@ -12,3 +12,9 @@
       - neovim
     state: present
   become: true
+
+- name: Neovim | Set nvim as vim | {{ ansible_distribution }}
+  ansible.builtin.shell:
+    cmd: "update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 100"
+    creates: /usr/bin/vim
+  become: true
