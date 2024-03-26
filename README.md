@@ -2,9 +2,7 @@
 
 Fully automated development environment heavily influence by [TechDufus](https://github.com/TechDufus/dotfiles)' repo, which was in turn heavily influenced by [ALT-F4-LLC](https://github.com/ALT-F4-LLC/dotfiles)'s repo.
 
-
 Please go check out their repos as they are much more talented than I am!
-
 
 ## Goals
 
@@ -24,7 +22,7 @@ This Ansible playbook only supports `Debian|Ubuntu|Fedora|Rocky|Arch` distributi
 
 Verify your `Debian|Ubuntu|Fedora|Rocky|Arch` installation has all latest packages installed before running the playbook.
 
-```
+```bash
 # Debian | Ubuntu
 sudo apt-get update && sudo apt-get upgrade -y
 # Fedora | Rocky
@@ -53,7 +51,6 @@ Below is a list of all available values. Not all are required but incorrect valu
 | bash_public           | dict `(see Environment below)`      | no       |
 | bash_private          | dict `(see Environment below)`      | no       |
 
-
 #### Environment
 
 Manage environment variables by configuring the `bash_public` and `bash_private` values in `all.yaml`. See both values usecase below.
@@ -63,7 +60,6 @@ Manage environment variables by configuring the `bash_public` and `bash_private`
 The `bash_public` value allows you to include a dictionary of generic and unsecure key-value pairs that will be stored in a `~/.bash_public`.
 
 ```yaml
-
 ---
 bash_public:
   MY_ENV_VAR: something
@@ -74,7 +70,6 @@ bash_public:
 The `bash_private` value allows you to include a dictionary of secure key-value pairs that will be stored in a `~/.bash_private`.
 
 ```yaml
-
 ---
 bash_private:
   MY_ENV_VAR_SECRET: !vault |
@@ -91,7 +86,6 @@ bash_private:
 Manage SSH keys by setting the `ssh_key` value in `all.yaml` shown as example below:
 
 ```yaml
-
 ---
 ssh_key:
   <filename>: !vault |
@@ -110,7 +104,6 @@ ssh_key:
 Manage `/etc/hosts` by setting the `system_host` value in `all.yaml`.
 
 ```yaml
-
 ---
 system_host:
   127.0.0.1: foobar.localhost
@@ -172,13 +165,13 @@ vim ~/.ansible-vault/vault.secret
 To then encrypt values with your vault password, use the following:
 
 ```bash
-$ ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret "mynewsecret" --name "MY_SECRET_VAR"
+ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret "mynewsecret" --name "MY_SECRET_VAR"
 ```
 
 To encrypt a file with your vault password, use the following:
 
 ```bash
-$ cat myfile.conf | ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret --stdin-name "myfile"
+cat myfile.conf | ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret --stdin-name "myfile"
 ```
 
 > NOTE: This file will automatically be detected by the playbook when running `dotfiles` command to decrypt values. Read more on Ansible Vault [here](https://docs.ansible.com/ansible/latest/user_guide/vault.html).
@@ -198,6 +191,7 @@ bash -c "$(curl -fsSL https://gitlab.com/gntsldr/dotfiles/-/raw/main/bin/dotfile
 ```
 
 If you want to run only a specific role, you can specify the following bash command:
+
 ```bash
 curl -fsSL https://gitlab.com/gntsldr/dotfiles/-/raw/main/bin/dotfiles | bash -s -- --tags comma,seperated,tags
 ```
@@ -225,6 +219,7 @@ The `dotfiles` command is available to you after the first use of this repo, as 
 Any flags or arguments you pass to the `dotfiles` command are passed as-is to the `ansible-playbook` command.
 
 For Example: Running the tmux tag with verbosity
+
 ```bash
 dotfiles -t tmux -vvv
 ```
