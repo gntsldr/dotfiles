@@ -23,13 +23,13 @@
     path: /opt/nvim-linux64
     state: absent
     recurse: true
-  when: nvim_folder.stat.exists
   become: true
+  when: nvim_folder.stat.exists
 
 - name: Neovim | Extract Neovim from tarball
   ansible.builtin.unarchive:
     source: /tmp/nvim-linux64.tar.gz
-    dest: /opt/nvim-linux64
+    dest: /opt
     creates: /opt/nvim-linux64/bin/nvim
   become: true
 
