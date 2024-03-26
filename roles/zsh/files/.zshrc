@@ -71,5 +71,6 @@ complete -o nospace -C /usr/bin/terraform terraform
 #alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Add to PATH
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.dotfiles/bin"
+export PATH="$PATH:/opt/nvim-linux64/bin"

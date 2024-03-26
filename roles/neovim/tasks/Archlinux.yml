@@ -3,12 +3,6 @@
   community.general.pacman:
     name:
       - vim
-    state: absent
-  become: true
-
-- name: Neovim | Install Neovim| {{ ansible_distribution }}
-  community.general.pacman:
-    name:
       - neovim
-    state: present
+    state: absent
   become: true

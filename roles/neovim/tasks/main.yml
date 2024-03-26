@@ -7,4 +7,31 @@
 - name: "Neovim | Run Tasks: {{ ansible_distribution }}"
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: neovim_distribution_config.stat.exists
-  
+
+- name: Neovim | Download latest Neovim tarball
+  ansible.builtin.get_url:
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    dest: /tmp/nvim-linux64.tar.gz
+
+- name: Neovim | Remove previous Neovim installation
+  ansible.builtin.file:
+    path: /opt/nvim-linux64/
+    state: absent
+    recurse: true
+
+- name: Neovim | Extract Neovim from tarball
+  ansible.builtin.unarchive:
+    source: /tmp/nvim-linux64.tar.gz
+    dest: /opt/nvim-linux64
+    creates: /opt/nvim-linux64/bin/nvim
+
+- name: Neovim | Remove Neovim tarball
+  ansible.builtin.file:
+    path: /tmp/nvim-linux64.tar.gz
+    state: absent
+
+- name: Neovim | Set nvim as vim | {{ ansible_distribution }}
+  ansible.builtin.shell:
+    cmd: update-alternatives --install /usr/bin/vim vim /opt/nvim-linux64/bin/nvim 100
+    creates: /usr/bin/vim
+  become: true
