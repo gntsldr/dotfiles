@@ -13,11 +13,17 @@
     url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
     dest: /tmp/nvim-linux64.tar.gz
 
+- name: Neovim | Check if a previous Neovim installation exists
+  ansible.builtin.stat:
+    path: /opt/nvim-linux64
+  register: nvim_folder
+
 - name: Neovim | Remove previous Neovim installation
   ansible.builtin.file:
     path: /opt/nvim-linux64
     state: absent
     recurse: true
+  when: nvim_folder.stat.exists
   become: true
 
 - name: Neovim | Extract Neovim from tarball
