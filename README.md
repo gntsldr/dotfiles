@@ -206,6 +206,12 @@ To update your environment run the `dotfiles` command in your shell:
 dotfiles
 ```
 
+If a password is required for sudo:
+
+```bash
+dotfiles --ask-become-pass
+```
+
 This will handle the following tasks:
 
 - Verify Ansible is up-to-date
