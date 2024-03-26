@@ -3,7 +3,7 @@ default_roles:
   - alacritty
   - bash
 #  - fonts
-#  - git
+  - git
   - micro
   - nano
   - ssh
