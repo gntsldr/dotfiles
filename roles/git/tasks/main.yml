@@ -1,16 +1,20 @@
 ---
-- name: "Git | Set user.name"
+- name: Git | Set user.name
   community.general.git_config:
     name: user.name
     scope: global
     value: "{{ git_user_name }}"
 
-- name: "Git | Set user.email"
+- name: Git | Set user.email
   community.general.git_config:
     name: user.email
     scope: global
     value: "{{ git_user_email }}"
   no_log: true
+
+- name: Git | Set environment variable
+  ansible.builtin.set_fact:
+    GIT_ASKPASS: "{{ gitlab_personal_access_token }}"
 
 #- name: "Git | Set init.defaultBranch"
 #  community.general.git_config:
