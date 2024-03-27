@@ -13,10 +13,9 @@
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 
-- name: "Tmux | Configure tmux"
+- name: "Tmux | Copy Tmux config"
   ansible.builtin.copy:
     src: tmux
     dest: "{{ ansible_user_dir }}/.config/"
     mode: '644'
     directory_mode: '755'
-    force: true
