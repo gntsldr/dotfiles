@@ -12,9 +12,9 @@
     value: "{{ git_user_email }}"
   no_log: true
 
-- name: Git | Set environment variable
-  ansible.builtin.set_fact:
-    GIT_ASKPASS: "{{ gitlab_personal_access_token }}"
+#- name: Git | Set environment variable
+#  ansible.builtin.set_fact:
+#    GIT_ASKPASS: "{{ gitlab_personal_access_token }}"
 
 #- name: "Git | Set init.defaultBranch"
 #  community.general.git_config:
