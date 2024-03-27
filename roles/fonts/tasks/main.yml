@@ -4,6 +4,13 @@
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/CascadiaCode.tar.xz
 
+- name: Fonts | Ensures CascadiaCode folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/CascadiaCode
+    state: directory
+    mode: '755'
+  become: true
+
 - name: Fonts | Extract Cascadia Code archive
   ansible.builtin.unarchive:
     src: /tmp/CascadiaCode.tar.xz
@@ -21,6 +28,13 @@
   ansible.builtin.get_url:
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/CascadiaMono.tar.xz
+
+- name: Fonts | Ensures CascadiaMono folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/CascadiaMono
+    state: directory
+    mode: '755'
+  become: true
 
 - name: Fonts | Extract Cascadia Mono archive
   ansible.builtin.unarchive:
@@ -40,6 +54,13 @@
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/FiraCode.tar.xz
 
+- name: Fonts | Ensures FiraCode folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/FiraCode
+    state: directory
+    mode: '755'
+  become: true
+
 - name: Fonts | Extract Fira Code archive
   ansible.builtin.unarchive:
     src: /tmp/FiraCode.tar.xz
@@ -58,6 +79,13 @@
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/JetBrainsMono.tar.xz
 
+- name: Fonts | Ensures JetBrainsMono folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/JetBrainsMono
+    state: directory
+    mode: '755'
+  become: true
+
 - name: Fonts | Extract JetBrains Mono archive
   ansible.builtin.unarchive:
     src: /tmp/JetBrainsMono.tar.xz
@@ -75,6 +103,13 @@
   ansible.builtin.get_url:
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/Meslo.tar.xz
+
+- name: Fonts | Ensures Meslo folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/Meslo
+    state: directory
+    mode: '755'
+  become: true
 
 - name: Fonts | Extract Meslo archive
   ansible.builtin.unarchive:
