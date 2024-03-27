@@ -11,6 +11,7 @@ default_roles:
   - neovim
   - ssh
   - starship
+#  - tmux
   - zsh
 
 git_user_name: "gntsldr"
