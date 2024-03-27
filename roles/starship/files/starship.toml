@@ -241,8 +241,8 @@ format = 'via [🌕 $version](bold blue) '
 
 [localip]
 ssh_only = true
-format = " ◯[$localipv4](bold magenta)"
-disabled = false
+format = " [$localipv4](bold magenta)"
+disabled = true
 
 [memory_usage]
 symbol = "󰍛 "
