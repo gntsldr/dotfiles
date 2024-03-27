@@ -1,4 +1,13 @@
 ---
+- name: "Git | Checking for Distribution Config: {{ ansible_distribution }}"
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: git_distribution_config
+
+- name: "Git | Run Tasks: {{ ansible_distribution }}"
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  when: gitdistribution_config.stat.exists
+  
 - name: Git | Set user.name
   community.general.git_config:
     name: user.name
@@ -12,9 +21,23 @@
     value: "{{ git_user_email }}"
   no_log: true
 
-#- name: Git | Set environment variable
-#  ansible.builtin.set_fact:
-#    GIT_ASKPASS: "{{ gitlab_personal_access_token }}"
+- name: Git | Set user.signingkey
+  community.general.git_config:
+    name: user.signingkey
+    scope: global
+    value: "{{ ansible_user_dir }}/.ssh/id_ed25519.pub"
+
+- name: Git | Set GIT_ASKPASS as environment variable
+  ansible.builtin.set_fact:
+    gitlab_askpass: "{{ gitlab_personal_access_token }}"
+  environment:
+    GIT_ASKPASS: "{{ gitlab_askpass }}"
+
+#- name: "Git | Set fetch.prune"
+#  community.general.git_config:
+#    name: fetch.prune
+#    scope: global
+#    value: true
 
 #- name: "Git | Set init.defaultBranch"
 #  community.general.git_config:
@@ -33,9 +56,3 @@
 #    name: rebase.autoStash
 #    scope: global
 #    value: true
-
-#- name: "Git | Set user.signingkey"
-#  community.general.git_config:
-#    name: user.signingkey
-#    scope: global
-#    value: "{{ ansible_user_dir }}/.ssh/id_ed25519.pub"
