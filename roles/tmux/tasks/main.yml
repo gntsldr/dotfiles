@@ -11,7 +11,7 @@
 - name: "tmux | Install TPM"
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: ~/.tmux/plugins/tpm
+    dest: ~/.config/tmux/plugins/tpm
 
 - name: "tmux | Copy tmux config"
   ansible.builtin.copy:
