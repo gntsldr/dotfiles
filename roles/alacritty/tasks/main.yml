@@ -1,18 +1,7 @@
 ---
-- name: Alacritty | Ensures {{ ansible_user_dir }}/.config/alacritty exists
-  ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/alacritty"
-    state: directory
-    mode: '755'
-
-- name: "Alacritty | Copy alacritty.yml"
+- name: Alacritty | Copy Alacritty config
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/alacritty.yml"
-    dest: "{{ ansible_user_dir }}/.config/alacritty/alacritty.yml"
+    src: "{{ role_path }}/files/alacritty"
+    dest: "{{ ansible_user_dir }}/.config/"
     mode: '644'
-
-- name: "Alacritty | Copy alacritty.toml"
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/alacritty.toml"
-    dest: "{{ ansible_user_dir }}/.config/alacritty/alacritty.toml"
-    mode: '644'
+    directory_mode: '755'
