@@ -7,9 +7,9 @@
 - name: Fonts | Extract Cascadia Code archive
   ansible.builtin.unarchive:
     src: /tmp/CascadiaCode.tar.xz
-    dest: /usr/share/fonts/cascadia-code
+    dest: /usr/share/fonts/CascadiaCode
     remote_src: yes
-    creates: /usr/share/fonts/cascadiacode/CaskaydiaCoveNerdFont-Regular.ttf
+    creates: /usr/share/fonts/CascadiaCode/CaskaydiaCoveNerdFont-Regular.ttf
 
 - name: Fonts | Remove Cascadia Code archive
   ansible.builtin.file:
@@ -24,13 +24,30 @@
 - name: Fonts | Extract Cascadia Mono archive
   ansible.builtin.unarchive:
     src: /tmp/CascadiaMono.tar.xz
-    dest: /usr/share/fonts/cascadia-mono
+    dest: /usr/share/fonts/CascadiaMono
     remote_src: yes
-    creates: /usr/share/fonts/cascadiamono/CaskaydiaMonoNerdFont-Regular.ttf
+    creates: /usr/share/fonts/CascadiaMono/CaskaydiaMonoNerdFont-Regular.ttf
 
 - name: Fonts | Remove Cascadia Mono archive
   ansible.builtin.file:
     path: /tmp/CascadiaMono.tar.xz
+    state: absent
+
+- name: Fonts | Download Fira Code archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/FiraCode.tar.xz
+
+- name: Fonts | Extract Fira Code archive
+  ansible.builtin.unarchive:
+    src: /tmp/FiraCode.tar.xz
+    dest: /usr/share/fonts/FiraCode
+    remote_src: yes
+    creates: /usr/share/fonts/FiraCode/FiraCodeNerdFont-Regular.ttf
+
+- name: Fonts | Remove Fira Code archive
+  ansible.builtin.file:
+    path: /tmp/FiraCode.tar.xz
     state: absent
 
 - name: Fonts | Download JetBrains Mono archive
@@ -41,11 +58,28 @@
 - name: Fonts | Extract JetBrains Mono archive
   ansible.builtin.unarchive:
     src: /tmp/JetBrainsMono.tar.xz
-    dest: /usr/share/fonts/jetbrains-mono
+    dest: /usr/share/fonts/JetBrainsMono
     remote_src: yes
-    creates: /usr/share/fonts/jetbrainsmono/JetBrainsMonoNerdFont-Regular.ttf
+    creates: /usr/share/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf
 
 - name: Fonts | Remove JetBrains Mono archive
   ansible.builtin.file:
     path: /tmp/JetBrainsMono.tar.xz
+    state: absent
+
+- name: Fonts | Download Meslo archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/Meslo.tar.xz
+
+- name: Fonts | Extract Meslo archive
+  ansible.builtin.unarchive:
+    src: /tmp/Meslo.tar.xz
+    dest: /usr/share/fonts/Meslo
+    remote_src: yes
+    creates: /usr/share/fonts/Meslo/MesloLGSNerdFont-Regular.ttf
+
+- name: Fonts | Remove Meslo archive
+  ansible.builtin.file:
+    path: /tmp/Meslo.tar.xz
     state: absent
