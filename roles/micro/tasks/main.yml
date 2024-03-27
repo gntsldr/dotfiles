@@ -8,20 +8,9 @@
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: micro_distribution_config.stat.exists
 
-- name: micro | Ensures {{ ansible_user_dir }}/.config/micro exists
-  ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/micro"
-    state: directory
-    mode: '755'
-    
-- name: "micro | Copy settings.json"
+- name: micro | Copy micro config
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/settings.json"
-    dest: "{{ ansible_user_dir }}/.config/micro/settings.json"
+    src: "{{ role_path }}/files/micro"
+    dest: "{{ ansible_user_dir }}/.config/"
     mode: '644'
-
-- name: "micro | Copy bindings.json"
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/bindings.json"
-    dest: "{{ ansible_user_dir }}/.config/micro/bindings.json"
-    mode: '644'
+    directory_mode: '755'
