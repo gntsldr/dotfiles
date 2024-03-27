@@ -10,6 +10,7 @@
     dest: /usr/share/fonts/CascadiaCode
     remote_src: yes
     creates: /usr/share/fonts/CascadiaCode/CaskaydiaCoveNerdFont-Regular.ttf
+  become: true
 
 - name: Fonts | Remove Cascadia Code archive
   ansible.builtin.file:
@@ -27,6 +28,7 @@
     dest: /usr/share/fonts/CascadiaMono
     remote_src: yes
     creates: /usr/share/fonts/CascadiaMono/CaskaydiaMonoNerdFont-Regular.ttf
+  become: true
 
 - name: Fonts | Remove Cascadia Mono archive
   ansible.builtin.file:
@@ -44,6 +46,7 @@
     dest: /usr/share/fonts/FiraCode
     remote_src: yes
     creates: /usr/share/fonts/FiraCode/FiraCodeNerdFont-Regular.ttf
+  become: true
 
 - name: Fonts | Remove Fira Code archive
   ansible.builtin.file:
@@ -61,6 +64,7 @@
     dest: /usr/share/fonts/JetBrainsMono
     remote_src: yes
     creates: /usr/share/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf
+  become: true
 
 - name: Fonts | Remove JetBrains Mono archive
   ansible.builtin.file:
@@ -78,6 +82,7 @@
     dest: /usr/share/fonts/Meslo
     remote_src: yes
     creates: /usr/share/fonts/Meslo/MesloLGSNerdFont-Regular.ttf
+  become: true
 
 - name: Fonts | Remove Meslo archive
   ansible.builtin.file:
