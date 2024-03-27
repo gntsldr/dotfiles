@@ -4,7 +4,7 @@
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/CascadiaCode.tar.xz
 
-- name: Fonts | Ensures CascadiaCode folder exists
+- name: Fonts | Ensure CascadiaCode folder exists
   ansible.builtin.file:
     path: /usr/share/fonts/CascadiaCode
     state: directory
@@ -29,7 +29,7 @@
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/CascadiaMono.tar.xz
 
-- name: Fonts | Ensures CascadiaMono folder exists
+- name: Fonts | Ensure CascadiaMono folder exists
   ansible.builtin.file:
     path: /usr/share/fonts/CascadiaMono
     state: directory
@@ -54,7 +54,7 @@
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/FiraCode.tar.xz
 
-- name: Fonts | Ensures FiraCode folder exists
+- name: Fonts | Ensure FiraCode folder exists
   ansible.builtin.file:
     path: /usr/share/fonts/FiraCode
     state: directory
@@ -79,7 +79,7 @@
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/JetBrainsMono.tar.xz
 
-- name: Fonts | Ensures JetBrainsMono folder exists
+- name: Fonts | Ensure JetBrainsMono folder exists
   ansible.builtin.file:
     path: /usr/share/fonts/JetBrainsMono
     state: directory
@@ -104,7 +104,7 @@
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
     dest: /tmp/Meslo.tar.xz
 
-- name: Fonts | Ensures Meslo folder exists
+- name: Fonts | Ensure Meslo folder exists
   ansible.builtin.file:
     path: /usr/share/fonts/Meslo
     state: directory
