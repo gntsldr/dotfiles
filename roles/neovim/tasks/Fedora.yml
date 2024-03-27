@@ -6,3 +6,10 @@
       - neovim
     state: absent
   become: true
+
+- name: Neovim | Install dependencies | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - gcc
+    state: present
+  become: true
