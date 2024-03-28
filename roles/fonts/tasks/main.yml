@@ -49,6 +49,31 @@
     path: /tmp/CascadiaMono.tar.xz
     state: absent
 
+- name: Fonts | Download Commit Mono archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CommitMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/CommitMono.tar.xz
+
+- name: Fonts | Ensure CommitMono folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/CommitMono
+    state: directory
+    mode: '755'
+  become: true
+
+- name: Fonts | Extract Commit Mono archive
+  ansible.builtin.unarchive:
+    src: /tmp/CommitMono.tar.xz
+    dest: /usr/share/fonts/CommitMono
+    remote_src: yes
+    creates: /usr/share/fonts/CommitMono/CommitMonoNerdFont-Regular.ttf
+  become: true
+
+- name: Fonts | Remove Commit Mono archive
+  ansible.builtin.file:
+    path: /tmp/CommitMono.tar.xz
+    state: absent
+
 - name: Fonts | Download Cousine archive
   ansible.builtin.get_url:
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Cousine.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
@@ -97,6 +122,31 @@
 - name: Fonts | Remove Fira Code archive
   ansible.builtin.file:
     path: /tmp/FiraCode.tar.xz
+    state: absent
+
+- name: Fonts | Download Hack archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/Hack.tar.xz
+
+- name: Fonts | Ensure Hack folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/Hack
+    state: directory
+    mode: '755'
+  become: true
+
+- name: Fonts | Extract Hack archive
+  ansible.builtin.unarchive:
+    src: /tmp/Hack.tar.xz
+    dest: /usr/share/fonts/Hack
+    remote_src: yes
+    creates: /usr/share/fonts/Hack/HackNerdFont-Regular.ttf
+  become: true
+
+- name: Fonts | Remove Hack archive
+  ansible.builtin.file:
+    path: /tmp/Hack.tar.xz
     state: absent
 
 - name: Fonts | Download iMWriting archive
