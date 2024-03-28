@@ -111,6 +111,7 @@ charging_symbol = "[↑](italic green)"
 discharging_symbol = "[↓](italic)"
 unknown_symbol = "[░](italic)"
 empty_symbol = "[▃](italic red)"
+disabled = true
 
 [[battery.display]]
 threshold = 40
