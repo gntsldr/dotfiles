@@ -63,7 +63,7 @@
 
 - name: Fonts | Extract Cousine archive
   ansible.builtin.unarchive:
-    src: /tmp/CascadiaMono.tar.xz
+    src: /tmp/Cousine.tar.xz
     dest: /usr/share/fonts/Cousine
     remote_src: yes
     creates: /usr/share/fonts/Cousine/CousineNerdFont-Regular.ttf
