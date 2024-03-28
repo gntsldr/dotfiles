@@ -49,6 +49,31 @@
     path: /tmp/CascadiaMono.tar.xz
     state: absent
 
+- name: Fonts | Download Cousine archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Cousine.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/Cousine.tar.xz
+
+- name: Fonts | Ensure Cousine folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/Cousine
+    state: directory
+    mode: '755'
+  become: true
+
+- name: Fonts | Extract Cousine archive
+  ansible.builtin.unarchive:
+    src: /tmp/CascadiaMono.tar.xz
+    dest: /usr/share/fonts/Cousine
+    remote_src: yes
+    creates: /usr/share/fonts/Cousine/CousineNerdFont-Regular.ttf
+  become: true
+
+- name: Fonts | Remove Cousine archive
+  ansible.builtin.file:
+    path: /tmp/Cousine.tar.xz
+    state: absent
+
 - name: Fonts | Download Fira Code archive
   ansible.builtin.get_url:
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
