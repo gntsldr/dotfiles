@@ -224,6 +224,31 @@
     path: /tmp/Meslo.tar.xz
     state: absent
 
+- name: Fonts | Download RobotoMono archive
+  ansible.builtin.get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/RobotoMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    dest: /tmp/RobotoMono.tar.xz
+
+- name: Fonts | Ensure RobotoMono folder exists
+  ansible.builtin.file:
+    path: /usr/share/fonts/RobotoMono
+    state: directory
+    mode: '755'
+  become: true
+
+- name: Fonts | Extract RobotoMono archive
+  ansible.builtin.unarchive:
+    src: /tmp/RobotoMono.tar.xz
+    dest: /usr/share/fonts/RobotoMono
+    remote_src: yes
+    creates: /usr/share/fonts/RobotoMono/RobotoMonoNerdFont-Regular.ttf
+  become: true
+
+- name: Fonts | Remove RobotoMono archive
+  ansible.builtin.file:
+    path: /tmp/RobotoMono.tar.xz
+    state: absent
+
 - name: Fonts | Download Ubuntu archive
   ansible.builtin.get_url:
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
