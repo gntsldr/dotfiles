@@ -6,3 +6,14 @@
       - neovim
     state: absent
   become: true
+
+- name: Neovim | Install dependencies | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - make
+      - gcc
+      - ripgrep
+      - unzip
+      - git
+    state: present
+  become: true

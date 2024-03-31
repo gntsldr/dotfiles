@@ -11,5 +11,9 @@
   ansible.builtin.dnf:
     name:
       - gcc
+      - make
+      - git
+      - ripgrep
+      - fd-find
     state: present
   become: true
