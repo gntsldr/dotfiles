@@ -1,24 +1,17 @@
+// Colors - https://github.com/olimorris/onedarkpro.nvim
+
 themes {
     onedarkpro {
-        "background": "#282C34",
-        "black": "#282C34",
-        "blue": "#61AFEF",
-        "brightBlack": "#3E4451",
-        "brightBlue": "#8FC6F4",
-        "brightCyan": "#7BC6D0",
-        "brightGreen": "#B3D39C",
-        "brightPurple": "#D7A1E7",
-        "brightRed": "#E9969D",
-        "brightWhite": "#C8CDD5",
-        "brightYellow": "#EDD4A6",
-        "cursorColor": "#FFFFFF",
-        "cyan": "#56B6C2",
-        "foreground": "#ABB2BF",
-        "green": "#98C379",
-        "purple": "#C678DD",
-        "red": "#E06C75",
-        "selectionBackground": "#FFFFFF",
-        "white": "#ABB2BF",
-        "yellow": "#E5C07B"
+        fg "#abb2bf"
+        bg "#282c34"
+        black "#282c34"
+        red "#e06c75"
+        green "#98c379"
+        yellow "#e5c07b"
+        blue "#61afef"
+        magenta "#c678dd"
+        cyan "#56b6c2"
+        white "#abb2bf"
+        orange "#d19a66"
     }
 }
