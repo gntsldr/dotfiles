@@ -1,0 +1,88 @@
+---
+- name: "Zellij | Checking for Distribution Config: {{ ansible_distribution }}"
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: zellij_distribution_config
+
+- name: "Zellij | Run Tasks: {{ ansible_distribution }}"
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  when: zellij_distribution_config.stat.exists
+
+- name: "Zellij | Download Latest Version JSON"
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/zellij-org/zellij/releases/latest
+  register: zellij_latest_version_json
+  changed_when: false
+
+- name: "Zellij | Registering zellij Latest Release"
+  ansible.builtin.set_fact:
+    zellij_latest_release: "{{ zellij_latest_version_json.json.tag_name }}"
+
+- name: "Zellij | Registering zellij Latest Version"
+  ansible.builtin.set_fact:
+    zellij_latest_version: "{{ zellij_latest_release.stdout|default('') }}"
+
+- name: "Zellij | Getting version information"
+  ansible.builtin.shell:
+    cmd: |
+      /usr/local/bin/zellij --version | cut -d ' ' -f 2
+  register: current_zellij_version
+  changed_when: false
+  failed_when: false
+
+- name: "Zellij | Registering zellij Current Version"
+  ansible.builtin.set_fact:
+    zellij_current_version: "v{{ current_zellij_version.stdout }}"
+
+#- name: "Zellij | Show current_zellij_version debug"
+#  ansible.builtin.debug:
+#    var: zellij_current_version
+
+#- name: "Zellij | Show zellij_latest_release debug"
+#  ansible.builtin.debug:
+#    var: zellij_latest_release
+
+- name: "Zellij | Install"
+  when: zellij_latest_release not in zellij_current_version|default('')
+  block:
+    - name: "Zellij | Define zellij_file"
+      ansible.builtin.set_fact:
+        zellij_file: "zellij-{{ ansible_machine }}-unknown-linux-musl"
+
+    - name: "Zellij | Downloading zellij Release"
+      ansible.builtin.get_url:
+        url: https://github.com/zellij-org/zellij/releases/download/{{ zellij_latest_release }}/{{ zellij_file }}.tar.gz
+        dest: /tmp/
+
+    - name: Neovim | Check if a previous Neovim installation exists
+      ansible.builtin.stat:
+        path: /usr/local/bin/zellij
+      register: zellij_binary
+
+    - name: "Zellij | Remove any current zellij installations"
+      ansible.builtin.file:
+        path: /usr/local/bin/zellij
+        state: absent
+      become: true
+      when: zellij.binary.stat.exists
+
+    - name: "Zellij | Extract zellij tar file"
+      ansible.builtin.unarchive:
+        src: /tmp/{{ zellij_file }}.tar.gz
+        dest: /usr/local/bin
+        creates: /usr/local/bin/zellij
+        remote_src: true
+      become: true
+
+    - name: Zellij | Remove Zellij tarball
+      ansible.builtin.file:
+        path: /tmp/{{ zellij_file }}.tar.gz
+        state: absent
+      become: true
+
+- name: Zellij | Copy Zellij config
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/zellij"
+    dest: "{{ ansible_user_dir }}/.config/"
+    mode: '644'
+    directory_mode: '755'
