@@ -1,13 +1,13 @@
 ---
 default_roles:
   - system
-  - alacritty
+#  - alacritty
   - bash
 #  - fonts
   - git
 #  - lazygit
   - micro
-  - nano
+#  - nano
 #  - neofetch
   - neovim
   - ssh
