@@ -64,7 +64,7 @@
         path: /usr/local/bin/zellij
         state: absent
       become: true
-      when: zellij.binary.stat.exists
+      when: zellij_binary.stat.exists
 
     - name: "Zellij | Extract zellij tar file"
       ansible.builtin.unarchive:
