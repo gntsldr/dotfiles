@@ -1,0 +1,6 @@
+---
+- name: nano | Install nano | {{ ansible_distribution }} 
+  ansible.builtin.apt:
+    name: nano
+    state: present
+  become: true
