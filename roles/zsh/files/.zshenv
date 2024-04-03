@@ -2,3 +2,4 @@
 export EDITOR=micro
 export KUBE_EDITOR=micro
 export MICRO_TRUECOLOR=1
+export COLORTERM=truecolor
