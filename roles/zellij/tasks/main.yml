@@ -49,17 +49,17 @@
       ansible.builtin.set_fact:
         zellij_file: "zellij-{{ ansible_machine }}-unknown-linux-musl"
 
-    - name: "Zellij | Downloading zellij Release"
+    - name: "Zellij | Downloading Zellij Release"
       ansible.builtin.get_url:
         url: https://github.com/zellij-org/zellij/releases/download/{{ zellij_latest_release }}/{{ zellij_file }}.tar.gz
         dest: /tmp/
 
-    - name: Neovim | Check if a previous Neovim installation exists
+    - name: Zellij | Check if a previous Zellij installation exists
       ansible.builtin.stat:
         path: /usr/local/bin/zellij
       register: zellij_binary
 
-    - name: "Zellij | Remove any current zellij installations"
+    - name: "Zellij | Remove any current Zellij installations"
       ansible.builtin.file:
         path: /usr/local/bin/zellij
         state: absent
@@ -93,3 +93,4 @@
     dest: "{{ ansible_user_dir }}/.config/zellij/plugins/"
     mode: '644'
     directory_mode: '755'
+  become: true
