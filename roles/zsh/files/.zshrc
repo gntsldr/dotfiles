@@ -57,7 +57,7 @@ alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 
 # Start Zellij
-eval "$(zellij setup --generate-auto-start zsh)"
+#eval "$(zellij setup --generate-auto-start zsh)"
 
 # Start Starship
 eval "$(starship init zsh)"
