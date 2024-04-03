@@ -13,7 +13,7 @@ default_roles:
   - ssh
   - starship
 #  - tmux
-#  - zellij
+  - zellij
   - zsh
 
 git_user_name: "gntsldr"
