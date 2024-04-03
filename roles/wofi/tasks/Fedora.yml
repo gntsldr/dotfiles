@@ -1,0 +1,7 @@
+---
+- name: wofi | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - wofi
+    state: present
+  become: true

@@ -1,0 +1,7 @@
+---
+- name: Hyprland | Install | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - hyprland
+    state: present
+  become: true

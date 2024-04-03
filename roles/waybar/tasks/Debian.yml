@@ -1,0 +1,7 @@
+---
+- name: Waybar | Install | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - waybar
+    state: present
+  become: true

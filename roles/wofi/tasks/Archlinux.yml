@@ -1,0 +1,7 @@
+---
+- name: wofi | Install | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - wofi
+    state: present
+  become: true
