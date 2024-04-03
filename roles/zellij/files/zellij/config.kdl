@@ -220,7 +220,7 @@ plugins {
 //   - true (default)
 //   - false
 //
-// pane_frames true
+pane_frames false
 
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
@@ -338,7 +338,7 @@ theme "onedarkpro"
 
 // The folder in which Zellij will look for layouts
 //
-// layout_dir "/path/to/my/layout_dir"
+// layout_dir "~/.config/zellij/layouts"
 
 // The folder in which Zellij will look for themes
 //
