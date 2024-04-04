@@ -1,0 +1,7 @@
+---
+- name: rofi | Install | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - rofi
+    state: present
+  become: true
