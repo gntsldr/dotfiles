@@ -1,0 +1,7 @@
+---
+- name: Fonts | Install Roboto | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - google-roboto-fonts
+    state: present
+  become: true
