@@ -11,8 +11,10 @@ default_roles:
 #  - nano
 #  - neofetch
   - neovim
+#  - rofi
   - ssh
   - starship
+#  - swww
 #  - tmux
 #  - waybar
 #  - wofi
