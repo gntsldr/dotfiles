@@ -5,3 +5,16 @@
       - hyprland
     state: present
   become: true
+
+- name: swww | Enable swww COPR repository | {{ ansible_distribution }}
+  community.general.dnf_copr:
+    name: alebastr/sway-extras
+    state: present
+  become: true
+
+- name: swww | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - swww
+    state: present
+  become: true
