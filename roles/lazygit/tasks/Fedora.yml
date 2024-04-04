@@ -1,8 +1,8 @@
 ---
 - name: lazygit | Enable COPR repository | {{ ansible_distribution }}
-  community.general.dnf_copr:
+  community.general.copr:
     name: atim/lazygit
-    state: present
+    state: enabled
   become: true
 
 - name: lazygit | Install | {{ ansible_distribution }}
