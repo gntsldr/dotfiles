@@ -1,6 +1,6 @@
 ---
 - name: "swww | Enable swww COPR repository | {{ ansible_distribution }}"
-  community.general.dnf_copr:
+  community.general.copr:
     name: alebastr/sway-extras
     state: present
   become: true
