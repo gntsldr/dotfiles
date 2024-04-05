@@ -29,6 +29,8 @@ configuration {
 @import "~/dotfiles/.settings/rofi-border.rasi"
 */
 
+@import "./themes/onedark.rasi"
+
 /* ---- Window ---- */
 window {
     width:                        900px;
