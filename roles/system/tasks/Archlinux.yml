@@ -10,7 +10,7 @@
   community.general.pacman:
     name:
       - sudo
-      - ssh
+      - openssh
       - qemu-guest-agent
       - git
       - curl
