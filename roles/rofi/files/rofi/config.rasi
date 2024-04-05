@@ -15,21 +15,21 @@ configuration {
     window-format:              "{w} · {c} · {t}";
     
 }
+
+/* ---- Load colors ---- */
+@import "./themes/onedark.rasi"
+
+/* ---- Load border width ---- */
+@import "./themes/border.rasi"
+
 /*
 /* ---- Load font ---- */
 @import "~/dotfiles/.settings/rofi-font.rasi"
 
-/* ---- Load pywal colors (custom wal template) ---- */
-@import "~/.cache/wal/colors-rofi-pywal"
-
 /* ---- Load wallpaper ---- */
 @import "~/.cache/current_wallpaper.rasi"
-
-/* ---- Load border width ---- */
-@import "~/dotfiles/.settings/rofi-border.rasi"
 */
 
-@import "./themes/onedark.rasi"
 
 /* ---- Window ---- */
 window {
