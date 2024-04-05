@@ -92,7 +92,6 @@
     path: "{{ ansible_user_dir }}/.config/zellij/plugins"
     state: directory
     mode: '755'
-  become: true
 
 - name: Zellij | Downloading zjstatus Release
   ansible.builtin.get_url:
