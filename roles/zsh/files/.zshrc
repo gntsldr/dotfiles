@@ -61,15 +61,6 @@ alias tree='eza -tree --icons=auto'
 alias df='df -h'
 #alias cat='bat'
 
-# Start Zellij
-#eval "$(zellij setup --generate-auto-start zsh)"
-
-# Start Starship
-eval "$(starship init zsh)"
-
-# Start Zoxide
-eval "$(zoxide init zsh)"
-
 # Enable zsh-autosuggestions
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -88,3 +79,12 @@ complete -o nospace -C /usr/bin/terraform terraform
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.dotfiles/bin"
 export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# Start Zellij
+#eval "$(zellij setup --generate-auto-start zsh)"
+
+# Start Starship
+eval "$(starship init zsh)"
+
+# Start Zoxide
+eval "$(zoxide init zsh)"
