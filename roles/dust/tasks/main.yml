@@ -69,14 +69,29 @@
     - name: "dust | Extract tarball"
       ansible.builtin.unarchive:
         src: /tmp/{{ dust_file }}.tar.gz
-        dest: /usr/local/bin
-        creates: /usr/local/bin/dust
+        dest: /tmp/
+        creates: /tmp/{{ dust_file }}
+        remote_src: true
+      become: true
+
+    - name: "dust | Move binary"
+      ansible.builtin.copy:
+        src: /tmp/{{ dust_file }}/dust
+        dest: /usr/local/bin/dust
+        mode: '755'
+        directory_mode: '755'
         remote_src: true
       become: true
 
     - name: dust | Remove tarball
       ansible.builtin.file:
         path: /tmp/{{ dust_file }}.tar.gz
+        state: absent
+      become: true
+
+    - name: dust | Remove temp folder
+      ansible.builtin.file:
+        path: /tmp/{{ dust_file }}
         state: absent
       become: true
 
