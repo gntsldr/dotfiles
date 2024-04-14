@@ -1,0 +1,7 @@
+---
+- name: ncdu | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - ncdu
+    state: present
+  become: true
