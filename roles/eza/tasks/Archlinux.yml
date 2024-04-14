@@ -1,0 +1,7 @@
+---
+- name: eza | Install | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - eza
+    state: present
+  become: true

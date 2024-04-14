@@ -3,6 +3,7 @@ default_roles:
   - system
 #  - alacritty
   - bash
+  - eza
 #  - fonts
   - git
 #  - hyprland
@@ -18,7 +19,7 @@ default_roles:
 #  - tmux
 #  - waybar
 #  - wofi
-  - zellij
+#  - zellij
   - zsh
 
 git_user_name: "gntsldr"

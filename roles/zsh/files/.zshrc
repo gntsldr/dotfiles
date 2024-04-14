@@ -54,7 +54,9 @@ bindkey ";5C" forward-word #ctrl+right
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
-alias ls='ls --color=auto'
+#alias ls='ls --color=auto'
+alias ls='eza --icons=auto --group-directories-first --group'
+alias cat='bat'
 
 # Start Zellij
 #eval "$(zellij setup --generate-auto-start zsh)"
