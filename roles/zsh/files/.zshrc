@@ -56,7 +56,9 @@ alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 #alias ls='ls --color=auto'
 alias ls='eza --icons=auto --group-directories-first --group'
-alias cat='bat'
+alias ll='eza -la --icons=auto --group-directories-first --group'
+alias df='df -h'
+#alias cat='bat'
 
 # Start Zellij
 #eval "$(zellij setup --generate-auto-start zsh)"

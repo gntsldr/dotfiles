@@ -1,0 +1,7 @@
+---
+- name: bat | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - bat
+    state: present
+  become: true

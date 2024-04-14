@@ -7,11 +7,3 @@
 - name: "System | Run Tasks: {{ ansible_distribution }}"
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: system_distribution_config.stat.exists
-
-#- name: "System | Set hosts"
-#  ansible.builtin.template:
-#    dest: "/etc/hosts"
-#    src: hosts.j2
-#    mode: "644"
-#  become: true
-#  when: not ansible_host_environment_is_wsl
