@@ -2,6 +2,7 @@
 - name: eza | Import GPG key | {{ ansible_distribution }}
   ansible.builtin.apt_key:
     url: https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
+    keyring: /etc/apt/keyrings/gierens.gpg
     state: present
   become: true
 
