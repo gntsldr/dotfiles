@@ -1,15 +1,15 @@
 ---
+- name: eza | Import GPG key | {{ ansible_distribution }}
+  ansible.builtin.apt_key:
+    url: https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
+    state: present
+  become: true
+
 - name: eza | Add repository | {{ ansible_distribution }}
   ansible.builtin.apt_repository:
     repo: deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main
     state: present
     filename: gierens
-  become: true
-
-- name: eza | Import GPG key | {{ ansible_distribution }}
-  ansible.builtin.apt_key:
-    url: https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
-    state: present
   become: true
 
 - name: eza | Install | {{ ansible_distribution }}
