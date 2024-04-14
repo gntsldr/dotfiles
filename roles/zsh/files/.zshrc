@@ -86,5 +86,5 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 # Start Starship
 eval "$(starship init zsh)"
 
-# Start Zoxide
-eval "$(zoxide init zsh)"
+# Start Zoxide and replace cd
+eval "$(zoxide init zsh --cmd cd)"
