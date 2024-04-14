@@ -8,7 +8,7 @@
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: micro_distribution_config.stat.exists
 
-- name: micro | Copy micro config
+- name: micro | Copy config
   ansible.builtin.copy:
     src: "{{ role_path }}/files/micro"
     dest: "{{ ansible_user_dir }}/.config/"
