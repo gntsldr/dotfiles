@@ -4,13 +4,17 @@ default_roles:
 #  - alacritty
   - bash
 #  - bat
+  - btop
+#  - dust
   - eza
 #  - fonts
+  - fzf
   - git
 #  - hyprland
 #  - lazygit
   - micro
 #  - nano
+#  - ncdu
 #  - neofetch
   - neovim
 #  - rofi
@@ -21,6 +25,7 @@ default_roles:
 #  - waybar
 #  - wofi
 #  - zellij
+  - zoxide
   - zsh
 
 git_user_name: "gntsldr"
