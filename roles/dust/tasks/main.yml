@@ -95,9 +95,9 @@
         state: absent
       become: true
 
-- name: dust | Copy config
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/dust"
-    dest: "{{ ansible_user_dir }}/.config/"
-    mode: '644'
-    directory_mode: '755'
+#- name: dust | Copy config
+#  ansible.builtin.copy:
+#    src: "{{ role_path }}/files/dust"
+#    dest: "{{ ansible_user_dir }}/.config/"
+#    mode: '644'
+#    directory_mode: '755'

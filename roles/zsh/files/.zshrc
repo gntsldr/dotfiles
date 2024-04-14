@@ -59,7 +59,7 @@ alias ls='eza --icons=auto --group-directories-first --group'
 alias ll='eza -la --icons=auto --group-directories-first --group'
 alias tree='eza -tree --icons=auto'
 alias df='df -h'
-alias du='dust'
+alias du='dust -r'
 #alias cat='bat'
 
 # Enable zsh-autosuggestions

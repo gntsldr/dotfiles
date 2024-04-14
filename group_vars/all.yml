@@ -5,7 +5,7 @@ default_roles:
   - bash
 #  - bat
   - btop
-#  - dust
+  - dust
   - eza
 #  - fonts
   - fzf
