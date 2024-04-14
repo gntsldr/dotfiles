@@ -57,6 +57,7 @@ alias grep='grep --color=auto'
 #alias ls='ls --color=auto'
 alias ls='eza --icons=auto --group-directories-first --group'
 alias ll='eza -la --icons=auto --group-directories-first --group'
+alias tree='eza -tree --icons=auto'
 alias df='df -h'
 #alias cat='bat'
 
@@ -66,8 +67,14 @@ alias df='df -h'
 # Start Starship
 eval "$(starship init zsh)"
 
+# Start Zoxide
+eval "$(zoxide init zsh)"
+
 # Enable zsh-autosuggestions
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Enable zsh-syntax-highlighting
+#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 autoload -U +X bashcompinit && bashcompinit
 
