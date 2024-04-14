@@ -1,0 +1,7 @@
+---
+- name: tldr | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - tldr
+    state: present
+  become: true

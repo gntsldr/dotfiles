@@ -1,0 +1,7 @@
+---
+- name: tldr | Install | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - tldr
+    state: present
+  become: true
