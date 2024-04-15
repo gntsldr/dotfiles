@@ -81,11 +81,14 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.dotfiles/bin"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-# Start Zellij
-#eval "$(zellij setup --generate-auto-start zsh)"
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 
 # Start Starship
 eval "$(starship init zsh)"
 
 # Start Zoxide and replace cd
 eval "$(zoxide init zsh --cmd cd)"
+
+# Start Zellij
+#eval "$(zellij setup --generate-auto-start zsh)"
