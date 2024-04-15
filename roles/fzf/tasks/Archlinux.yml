@@ -1,7 +1,0 @@
----
-- name: fzf | Install | {{ ansible_distribution }}
-  community.general.pacman:
-    name:
-      - fzf
-    state: present
-  become: true

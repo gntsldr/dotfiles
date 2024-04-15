@@ -1,7 +1,0 @@
----
-- name: fzf | Install | {{ ansible_distribution }}
-  ansible.builtin.apt:
-    name:
-      - fzf
-    state: present
-  become: true

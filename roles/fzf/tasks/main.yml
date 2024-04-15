@@ -7,3 +7,84 @@
 - name: "fzf | Run Tasks: {{ ansible_distribution }}"
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: fzf_distribution_config.stat.exists
+
+- name: fzf | Download Latest Version JSON
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/junegunn/fzf/releases/latest
+  register: fzf_latest_version_json
+  changed_when: false
+
+- name: fzf | Registering fzf Latest Release
+  ansible.builtin.set_fact:
+    fzf_latest_release: "{{ fzf_latest_version_json.json.tag_name }}"
+
+- name: fzf | Registering fzf Latest Version
+  ansible.builtin.set_fact:
+    fzf_latest_version: "{{ fzf_latest_release.stdout|default('') }}"
+
+- name: fzf | Getting version information
+  ansible.builtin.shell:
+    cmd: |
+      /usr/local/bin/fzf --version | cut -d ' ' -f 2
+  register: current_fzf_version
+  changed_when: false
+  failed_when: false
+
+- name: fzf | Registering fzf Current Version
+  ansible.builtin.set_fact:
+    fzf_current_version: "v{{ current_fzf_version.stdout }}"
+
+#- name: "fzf | Show current_fzf_version debug"
+#  ansible.builtin.debug:
+#    var: fzf_current_version
+
+#- name: "fzf | Show fzf_latest_release debug"
+#  ansible.builtin.debug:
+#    var: fzf_latest_release
+
+- name: fzf | Install
+  when: fzf_latest_release not in fzf_current_version|default('')
+  block:
+    - name: fzf | Define fzf_file
+      ansible.builtin.set_fact:
+        fzf_file: "fzf-{{ fzf_latest_release }}-linux_amd64"
+
+    - name: fzf | Downloading Release
+      ansible.builtin.get_url:
+        url: https://github.com/junegunn/fzf/releases/download/{{ fzf_latest_release }}/{{ fzf_file }}.tar.gz
+        dest: /tmp/
+
+    - name: fzf | Check if a previous installation exists
+      ansible.builtin.stat:
+        path: /usr/local/bin/fzf
+      register: fzf_binary
+
+    - name: fzf | Remove current installation
+      ansible.builtin.file:
+        path: /usr/local/bin/fzf
+        state: absent
+      become: true
+      when: fzf_binary.stat.exists
+
+    - name: fzf | Extract tarball
+      ansible.builtin.unarchive:
+        src: /tmp/{{ fzf_file }}.tar.gz
+        dest: /usr/local/bin
+        creates: /usr/local/bin/fzf
+        owner: root
+        group: root
+        remote_src: true
+      become: true
+
+    - name: fzf | Remove tarball
+      ansible.builtin.file:
+        path: /tmp/{{ fzf_file }}.tar.gz
+        state: absent
+      become: true
+
+#- name: fzf | Copy config
+#  ansible.builtin.copy:
+#    src: "{{ role_path }}/files/fzf"
+#    dest: "{{ ansible_user_dir }}/.config/"
+#    mode: '644'
+#    directory_mode: '755'
