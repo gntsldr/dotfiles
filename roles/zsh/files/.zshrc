@@ -58,8 +58,10 @@ alias grep='grep --color=auto'
 alias ls='eza --icons=auto --group-directories-first --group'
 alias ll='eza -la --icons=auto --group-directories-first --group'
 alias tree='eza --tree --icons=auto'
-alias df='df -h'
+alias df='dysk --units binary'
+alias dysk='dysk --units binary'
 alias du='dust -r'
+alias dust='dust -r'
 #alias cat='bat'
 
 # Enable zsh-autosuggestions
@@ -83,6 +85,8 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
+# Set up fzf to us fd
+export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 
 # Start Starship
 eval "$(starship init zsh)"
