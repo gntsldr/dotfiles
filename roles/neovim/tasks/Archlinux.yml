@@ -6,3 +6,15 @@
       - neovim
     state: absent
   become: true
+
+- name: Neovim | Install dependencies | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - make
+      - gcc
+      - ripgrep
+      - unzip
+      - git
+      - dpkg
+    state: present
+  become: true

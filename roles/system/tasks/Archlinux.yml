@@ -15,6 +15,5 @@
       - git
       - curl
       - wget
-      - dpkg
     state: present
   become: true

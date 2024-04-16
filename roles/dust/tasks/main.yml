@@ -1,28 +1,28 @@
 ---
-- name: "dust | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: dust | Checking for Distribution Config | {{ ansible_distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: dust_distribution_config
 
-- name: "dust | Run Tasks: {{ ansible_distribution }}"
+- name: dust | Run Tasks | {{ ansible_distribution }}
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: dust_distribution_config.stat.exists
 
-- name: "dust | Download Latest Version JSON"
+- name: "dust | Download latest version JSON"
   ansible.builtin.uri:
     url: https://api.github.com/repos/bootandy/dust/releases/latest
   register: dust_latest_version_json
   changed_when: false
 
-- name: "dust | Registering dust Latest Release"
+- name: dust | Registering latest release
   ansible.builtin.set_fact:
     dust_latest_release: "{{ dust_latest_version_json.json.tag_name }}"
 
-- name: "dust | Registering dust Latest Version"
+- name: dust | Registering latest Version
   ansible.builtin.set_fact:
     dust_latest_version: "{{ dust_latest_release.stdout|default('') }}"
 
-- name: "dust | Getting version information"
+- name: dust | Getting version information
   ansible.builtin.shell:
     cmd: |
       /usr/local/bin/dust --version | cut -d ' ' -f 2
@@ -30,26 +30,26 @@
   changed_when: false
   failed_when: false
 
-- name: "dust | Registering dust Current Version"
+- name: dust | Registering current version
   ansible.builtin.set_fact:
     dust_current_version: "v{{ current_dust_version.stdout }}"
 
-#- name: "dust | Show current_dust_version debug"
-#  ansible.builtin.debug:
-#    var: dust_current_version
+# - name: "dust | Show current_dust_version debug"
+#   ansible.builtin.debug:
+#     var: dust_current_version
 
-#- name: "dust | Show dust_latest_release debug"
-#  ansible.builtin.debug:
-#    var: dust_latest_release
+# - name: "dust | Show dust_latest_release debug"
+#   ansible.builtin.debug:
+#     var: dust_latest_release
 
-- name: "dust | Install"
+- name: dust | Install
   when: dust_latest_release not in dust_current_version|default('')
   block:
-    - name: "dust | Define dust_file"
+    - name: dust | Define dust_file
       ansible.builtin.set_fact:
         dust_file: "dust-{{ dust_latest_release }}-{{ ansible_machine }}-unknown-linux-musl"
 
-    - name: "dust | Downloading Release"
+    - name: dust | Downloading Release
       ansible.builtin.get_url:
         url: https://github.com/bootandy/dust/releases/download/{{ dust_latest_release }}/{{ dust_file }}.tar.gz
         dest: /tmp/
@@ -59,14 +59,14 @@
         path: /usr/local/bin/dust
       register: dust_binary
 
-    - name: "dust | Remove any current installations"
+    - name: dust | Remove any current installations
       ansible.builtin.file:
         path: /usr/local/bin/dust
         state: absent
       become: true
       when: dust_binary.stat.exists
 
-    - name: "dust | Extract tarball"
+    - name: dust | Extract tarball
       ansible.builtin.unarchive:
         src: /tmp/{{ dust_file }}.tar.gz
         dest: /tmp/
@@ -74,7 +74,7 @@
         remote_src: true
       become: true
 
-    - name: "dust | Move binary"
+    - name: dust | Move binary
       ansible.builtin.copy:
         src: /tmp/{{ dust_file }}/dust
         dest: /usr/local/bin/dust

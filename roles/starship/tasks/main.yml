@@ -1,27 +1,27 @@
 ---
-- name: Starship | Download Starship installer
+- name: Starship | Download installer
   ansible.builtin.get_url:
     url: https://starship.rs/install.sh
     dest: /tmp/starship.sh
     mode: '755'
 
-- name: Starship | Execute the Starship installer
+- name: Starship | Execute installer
   ansible.builtin.command: sh /tmp/starship.sh -y
   args:
     creates: /usr/local/bin/starship
 
-- name: Starship | Remove Starship installer.sh
+- name: Starship | Remove installer
   ansible.builtin.file:
     path: /tmp/starship.sh
     state: absent
 
-- name: Starship | Ensures {{ ansible_user_dir }}/.config exists
+- name: Starship | Ensures .config exists
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config"
     state: directory
     mode: '755'
 
-- name: Starship | Copy starship.toml
+- name: Starship | Copy config
   ansible.builtin.copy:
     src: "{{ role_path }}/files/starship.toml"
     dest: "{{ ansible_user_dir }}/.config/starship.toml"

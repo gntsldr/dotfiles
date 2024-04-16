@@ -1,0 +1,12 @@
+---
+- name: fd | Install | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - fd-find
+    state: present
+  become: true
+
+- name: fd | Set fdfind as fd | {{ ansible_distribution }}
+  ansible.builtin.shell:
+    cmd: ln -s $(which fdfind) ~/.local/bin/fd
+    creates: ~/.local/bin/fd

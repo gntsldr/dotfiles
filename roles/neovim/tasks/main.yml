@@ -1,31 +1,32 @@
 ---
-- name: "Neovim | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: Neovim | Checking for Distribution Config | {{ ansible_distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: neovim_distribution_config
 
-- name: "Neovim | Run Tasks: {{ ansible_distribution }}"
+- name: Neovim | Run Tasks | {{ ansible_distribution }}
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: neovim_distribution_config.stat.exists
 
-- name: Neovim | Download latest Neovim release
+- name: Neovim | Download latest release
   ansible.builtin.get_url:
     url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
     dest: /tmp/nvim-linux64.tar.gz
+    mode: '755'
 
-- name: Neovim | Check if a previous Neovim installation exists
+- name: Neovim | Check if a previous installation exists
   ansible.builtin.stat:
     path: /opt/nvim-linux64
   register: nvim_folder
 
-- name: Neovim | Remove previous Neovim installation
+- name: Neovim | Remove previous installation
   ansible.builtin.file:
     path: /opt/nvim-linux64
     state: absent
   become: true
   when: nvim_folder.stat.exists
 
-- name: Neovim | Extract Neovim from tarball
+- name: Neovim | Extract tarball
   ansible.builtin.unarchive:
     src: /tmp/nvim-linux64.tar.gz
     dest: /opt
@@ -33,18 +34,18 @@
     remote_src: true
   become: true
 
-- name: Neovim | Remove Neovim tarball
+- name: Neovim | Remove tarball
   ansible.builtin.file:
     path: /tmp/nvim-linux64.tar.gz
     state: absent
 
 - name: Neovim | Set nvim as vim
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: update-alternatives --install /usr/bin/vim vim /opt/nvim-linux64/bin/nvim 100
     creates: /usr/bin/vim
   become: true
 
-- name: Neovim | Copy Neovim config
+- name: Neovim | Copy config
   ansible.builtin.copy:
     src: "{{ role_path }}/files/nvim"
     dest: "{{ ansible_user_dir }}/.config/"

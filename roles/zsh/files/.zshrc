@@ -77,15 +77,8 @@ complete -o nospace -C /usr/bin/terraform terraform
 # Alias for dotfile management with git
 #alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-# Add to PATH
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.dotfiles/bin"
-export PATH="$PATH:/opt/nvim-linux64/bin"
-
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
-# Set up fzf to us fd
-export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 
 # Start Starship
 eval "$(starship init zsh)"

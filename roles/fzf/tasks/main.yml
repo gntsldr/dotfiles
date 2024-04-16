@@ -1,24 +1,24 @@
 ---
-- name: "fzf | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: fzf | Checking for distribution config | {{ ansible_distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: fzf_distribution_config
 
-- name: "fzf | Run Tasks: {{ ansible_distribution }}"
+- name: fzf | Run tasks | {{ ansible_distribution }}
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: fzf_distribution_config.stat.exists
 
-- name: fzf | Download Latest Version JSON
+- name: fzf | Download latest version JSON
   ansible.builtin.uri:
     url: https://api.github.com/repos/junegunn/fzf/releases/latest
   register: fzf_latest_version_json
   changed_when: false
 
-- name: fzf | Registering fzf Latest Release
+- name: fzf | Registering fzf latest release
   ansible.builtin.set_fact:
     fzf_latest_release: "{{ fzf_latest_version_json.json.tag_name }}"
 
-- name: fzf | Registering fzf Latest Version
+- name: fzf | Registering fzf latest version
   ansible.builtin.set_fact:
     fzf_latest_version: "{{ fzf_latest_release.stdout|default('') }}"
 
@@ -34,13 +34,13 @@
   ansible.builtin.set_fact:
     fzf_current_version: "v{{ current_fzf_version.stdout }}"
 
-#- name: "fzf | Show current_fzf_version debug"
-#  ansible.builtin.debug:
-#    var: fzf_current_version
+# - name: "fzf | Show current_fzf_version debug"
+#   ansible.builtin.debug:
+#     var: fzf_current_version
 
-#- name: "fzf | Show fzf_latest_release debug"
-#  ansible.builtin.debug:
-#    var: fzf_latest_release
+# - name: "fzf | Show fzf_latest_release debug"
+#   ansible.builtin.debug:
+#     var: fzf_latest_release
 
 - name: fzf | Install
   when: fzf_latest_release not in fzf_current_version|default('')
@@ -49,7 +49,7 @@
       ansible.builtin.set_fact:
         fzf_file: "fzf-{{ fzf_latest_release }}-linux_amd64"
 
-    - name: fzf | Downloading Release
+    - name: fzf | Downloading release
       ansible.builtin.get_url:
         url: https://github.com/junegunn/fzf/releases/download/{{ fzf_latest_release }}/{{ fzf_file }}.tar.gz
         dest: /tmp/
@@ -81,10 +81,3 @@
         path: /tmp/{{ fzf_file }}.tar.gz
         state: absent
       become: true
-
-#- name: fzf | Copy config
-#  ansible.builtin.copy:
-#    src: "{{ role_path }}/files/fzf"
-#    dest: "{{ ansible_user_dir }}/.config/"
-#    mode: '644'
-#    directory_mode: '755'

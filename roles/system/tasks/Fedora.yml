@@ -1,5 +1,5 @@
 ---
-- name: System | Update DNF Repos and Upgrade DNF Packages| {{ ansible_distribution }}
+- name: System | Update DNF repos and upgrade DNF packages| {{ ansible_distribution }}
   ansible.builtin.dnf:
     name: '*'
     update_cache: true

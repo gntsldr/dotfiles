@@ -5,8 +5,11 @@ default_roles:
   - bash
 #  - bat
   - btop
+#  - duf
   - dust
+  - dysk
   - eza
+  - fd
 #  - fonts
   - fzf
   - git
@@ -14,13 +17,15 @@ default_roles:
 #  - lazygit
   - micro
 #  - nano
-#  - ncdu
+  - ncdu
 #  - neofetch
   - neovim
+  - ripgrep
 #  - rofi
   - ssh
   - starship
 #  - swww
+  - tldr
 #  - tmux
 #  - waybar
 #  - wofi

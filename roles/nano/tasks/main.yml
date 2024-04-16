@@ -1,10 +1,10 @@
 ---
-- name: "nano | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: "nano | Checking for distribution config: {{ ansible_distribution }}"
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: nano_distribution_config
 
-- name: "nano | Run Tasks: {{ ansible_distribution }}"
+- name: "nano | Run tasks: {{ ansible_distribution }}"
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: nano_distribution_config.stat.exists
 

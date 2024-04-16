@@ -1,0 +1,7 @@
+---
+- name: duf | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - duf
+    state: present
+  become: true

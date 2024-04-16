@@ -1,4 +1,5 @@
-- name: "Bash | Copy .bashrc"
+---
+- name: Bash | Copy .bashrc
   ansible.builtin.copy:
     src: "{{ role_path }}/files/.bashrc"
     dest: "{{ ansible_user_dir }}/.bashrc"

@@ -1,15 +1,15 @@
 ---
-- name: lazygit | Download Latest Version JSON
+- name: lazygit | Download latest version JSON
   ansible.builtin.uri:
     url: https://api.github.com/repos/jesseduffield/lazygit/releases/latest
   register: lazygit_latest_version_json
   changed_when: false
 
-- name: lazygit | Registering lazygit Latest Release
+- name: lazygit | Registering lazygit latest release
   ansible.builtin.set_fact:
     lazygit_latest_release: "{{ lazygit_latest_version_json.json.tag_name }}"
 
-- name: lazygit | Registering lazygit Latest Version
+- name: lazygit | Registering lazygit latest version
   ansible.builtin.set_fact:
     lazygit_latest_version: "{{ lazygit_latest_release.stdout | default('') }}"
 

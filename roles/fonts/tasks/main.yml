@@ -1,17 +1,18 @@
 ---
-- name: "Fonts | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: Fonts | Checking for distribution config | {{ ansible_distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: tmux_distribution_config
 
-- name: "Fonts | Run Tasks: {{ ansible_distribution }}"
+- name: Fonts | Run tasks | {{ ansible_distribution }}
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: tmux_distribution_config.stat.exists
 
 - name: Fonts | Download Cascadia Code archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.tar.xz"
     dest: /tmp/CascadiaCode.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure CascadiaCode folder exists
   ansible.builtin.file:
@@ -24,7 +25,7 @@
   ansible.builtin.unarchive:
     src: /tmp/CascadiaCode.tar.xz
     dest: /usr/share/fonts/CascadiaCode
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/CascadiaCode/CaskaydiaCoveNerdFont-Regular.ttf
   become: true
 
@@ -35,8 +36,9 @@
 
 - name: Fonts | Download Cascadia Mono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaMono.tar.xz"
     dest: /tmp/CascadiaMono.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure CascadiaMono folder exists
   ansible.builtin.file:
@@ -49,7 +51,7 @@
   ansible.builtin.unarchive:
     src: /tmp/CascadiaMono.tar.xz
     dest: /usr/share/fonts/CascadiaMono
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/CascadiaMono/CaskaydiaMonoNerdFont-Regular.ttf
   become: true
 
@@ -60,8 +62,9 @@
 
 - name: Fonts | Download Commit Mono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CommitMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CommitMono.tar.xz"
     dest: /tmp/CommitMono.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure CommitMono folder exists
   ansible.builtin.file:
@@ -74,7 +77,7 @@
   ansible.builtin.unarchive:
     src: /tmp/CommitMono.tar.xz
     dest: /usr/share/fonts/CommitMono
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/CommitMono/CommitMonoNerdFont-Regular.ttf
   become: true
 
@@ -85,8 +88,9 @@
 
 - name: Fonts | Download Cousine archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Cousine.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Cousine.tar.xz"
     dest: /tmp/Cousine.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure Cousine folder exists
   ansible.builtin.file:
@@ -99,7 +103,7 @@
   ansible.builtin.unarchive:
     src: /tmp/Cousine.tar.xz
     dest: /usr/share/fonts/Cousine
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/Cousine/CousineNerdFont-Regular.ttf
   become: true
 
@@ -110,8 +114,9 @@
 
 - name: Fonts | Download Fira Code archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.tar.xz"
     dest: /tmp/FiraCode.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure FiraCode folder exists
   ansible.builtin.file:
@@ -124,7 +129,7 @@
   ansible.builtin.unarchive:
     src: /tmp/FiraCode.tar.xz
     dest: /usr/share/fonts/FiraCode
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/FiraCode/FiraCodeNerdFont-Regular.ttf
   become: true
 
@@ -135,8 +140,9 @@
 
 - name: Fonts | Download Hack archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.tar.xz"
     dest: /tmp/Hack.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure Hack folder exists
   ansible.builtin.file:
@@ -149,7 +155,7 @@
   ansible.builtin.unarchive:
     src: /tmp/Hack.tar.xz
     dest: /usr/share/fonts/Hack
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/Hack/HackNerdFont-Regular.ttf
   become: true
 
@@ -160,8 +166,9 @@
 
 - name: Fonts | Download iMWriting archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/iA-Writer.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/iA-Writer.tar.xz"
     dest: /tmp/iA-Writer.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure iMWriting folder exists
   ansible.builtin.file:
@@ -174,7 +181,7 @@
   ansible.builtin.unarchive:
     src: /tmp/iA-Writer.tar.xz
     dest: /usr/share/fonts/iA-Writer
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/iA-Writer/iMWritingMonoNerdFont-Regular.ttf
   become: true
 
@@ -185,8 +192,9 @@
 
 - name: Fonts | Download JetBrains Mono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.tar.xz"
     dest: /tmp/JetBrainsMono.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure JetBrainsMono folder exists
   ansible.builtin.file:
@@ -199,7 +207,7 @@
   ansible.builtin.unarchive:
     src: /tmp/JetBrainsMono.tar.xz
     dest: /usr/share/fonts/JetBrainsMono
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf
   become: true
 
@@ -210,8 +218,9 @@
 
 - name: Fonts | Download Meslo archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.tar.xz"
     dest: /tmp/Meslo.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure Meslo folder exists
   ansible.builtin.file:
@@ -224,7 +233,7 @@
   ansible.builtin.unarchive:
     src: /tmp/Meslo.tar.xz
     dest: /usr/share/fonts/Meslo
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/Meslo/MesloLGSNerdFont-Regular.ttf
   become: true
 
@@ -235,8 +244,9 @@
 
 - name: Fonts | Download RobotoMono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/RobotoMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/RobotoMono.tar.xz"
     dest: /tmp/RobotoMono.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure RobotoMono folder exists
   ansible.builtin.file:
@@ -249,7 +259,7 @@
   ansible.builtin.unarchive:
     src: /tmp/RobotoMono.tar.xz
     dest: /usr/share/fonts/RobotoMono
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/RobotoMono/RobotoMonoNerdFont-Regular.ttf
   become: true
 
@@ -260,8 +270,9 @@
 
 - name: Fonts | Download Ubuntu archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.tar.xz"
     dest: /tmp/Ubuntu.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure Ubuntu folder exists
   ansible.builtin.file:
@@ -274,7 +285,7 @@
   ansible.builtin.unarchive:
     src: /tmp/Ubuntu.tar.xz
     dest: /usr/share/fonts/Ubuntu
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/Ubuntu/UbuntuNerdFont-Regular.ttf
   become: true
 
@@ -285,8 +296,9 @@
 
 - name: Fonts | Download Ubuntu Mono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/UbuntuMono.tar.xz"  # Replace with the URL of the Nerd Fonts archive you want to install
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/UbuntuMono.tar.xz"
     dest: /tmp/UbuntuMono.tar.xz
+    mode: '755'
 
 - name: Fonts | Ensure Ubuntu Mono folder exists
   ansible.builtin.file:
@@ -299,7 +311,7 @@
   ansible.builtin.unarchive:
     src: /tmp/UbuntuMono.tar.xz
     dest: /usr/share/fonts/UbuntuMono
-    remote_src: yes
+    remote_src: true
     creates: /usr/share/fonts/Ubuntu/UbuntuMonoNerdFont-Regular.ttf
   become: true
 

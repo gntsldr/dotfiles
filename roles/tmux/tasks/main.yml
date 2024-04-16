@@ -1,19 +1,19 @@
 ---
-- name: "tmux | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: tmux | Checking for distribution config | {{ ansible_distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: tmux_distribution_config
 
-- name: "tmux | Run Tasks: {{ ansible_distribution }}"
+- name: tmux | Run tasks | {{ ansible_distribution }}
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: tmux_distribution_config.stat.exists
 
-- name: "tmux | Install TPM"
+- name: tmux | Install TPM
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.config/tmux/plugins/tpm
 
-- name: "tmux | Copy tmux config"
+- name: tmux | Copy config
   ansible.builtin.copy:
     src: "{{ role_path }}/files/tmux"
     dest: "{{ ansible_user_dir }}/.config/"

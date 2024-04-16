@@ -1,28 +1,28 @@
 ---
-- name: "Zellij | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: Zellij | Checking for distribution config | {{ ansible_distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: zellij_distribution_config
 
-- name: "Zellij | Run Tasks: {{ ansible_distribution }}"
+- name: Zellij | Run tasks | {{ ansible_distribution }}
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: zellij_distribution_config.stat.exists
 
-- name: "Zellij | Download Latest Version JSON"
+- name: Zellij | Download latest version JSON
   ansible.builtin.uri:
     url: https://api.github.com/repos/zellij-org/zellij/releases/latest
   register: zellij_latest_version_json
   changed_when: false
 
-- name: "Zellij | Registering zellij Latest Release"
+- name: Zellij | Registering Latest Release
   ansible.builtin.set_fact:
     zellij_latest_release: "{{ zellij_latest_version_json.json.tag_name }}"
 
-- name: "Zellij | Registering zellij Latest Version"
+- name: Zellij | Registering Latest Version
   ansible.builtin.set_fact:
-    zellij_latest_version: "{{ zellij_latest_release.stdout|default('') }}"
+    zellij_latest_version: "{{ zellij_latest_release.stdout | default('') }}"
 
-- name: "Zellij | Getting version information"
+- name: Zellij | Getting version information
   ansible.builtin.shell:
     cmd: |
       /usr/local/bin/zellij --version | cut -d ' ' -f 2
@@ -30,57 +30,60 @@
   changed_when: false
   failed_when: false
 
-- name: "Zellij | Registering zellij Current Version"
+- name: Zellij | Registering Current Version
   ansible.builtin.set_fact:
     zellij_current_version: "v{{ current_zellij_version.stdout }}"
 
-#- name: "Zellij | Show current_zellij_version debug"
-#  ansible.builtin.debug:
-#    var: zellij_current_version
+# - name: "Zellij | Show current_zellij_version debug"
+#   ansible.builtin.debug:
+#     var: zellij_current_version
 
-#- name: "Zellij | Show zellij_latest_release debug"
-#  ansible.builtin.debug:
-#    var: zellij_latest_release
+# - name: "Zellij | Show zellij_latest_release debug"
+#   ansible.builtin.debug:
+#     var: zellij_latest_release
 
-- name: "Zellij | Install"
+- name: Zellij | Install
   when: zellij_latest_release not in zellij_current_version|default('')
   block:
-    - name: "Zellij | Define zellij_file"
+    - name: Zellij | Define zellij_file
       ansible.builtin.set_fact:
         zellij_file: "zellij-{{ ansible_machine }}-unknown-linux-musl"
 
-    - name: "Zellij | Downloading Zellij Release"
+    - name: Zellij | Downloading Release
       ansible.builtin.get_url:
         url: https://github.com/zellij-org/zellij/releases/download/{{ zellij_latest_release }}/{{ zellij_file }}.tar.gz
         dest: /tmp/
+        mode: '644'
 
-    - name: Zellij | Check if a previous Zellij installation exists
+    - name: Zellij | Check if a previous installation exists
       ansible.builtin.stat:
         path: /usr/local/bin/zellij
       register: zellij_binary
 
-    - name: "Zellij | Remove any current Zellij installations"
+    - name: Zellij | Remove any current installations
       ansible.builtin.file:
         path: /usr/local/bin/zellij
         state: absent
       become: true
       when: zellij_binary.stat.exists
 
-    - name: "Zellij | Extract zellij tar file"
+    - name: Zellij | Extract tarball
       ansible.builtin.unarchive:
         src: /tmp/{{ zellij_file }}.tar.gz
         dest: /usr/local/bin
         creates: /usr/local/bin/zellij
+        owner: root
+        group: root
         remote_src: true
       become: true
 
-    - name: Zellij | Remove Zellij tarball
+    - name: Zellij | Remove tarball
       ansible.builtin.file:
         path: /tmp/{{ zellij_file }}.tar.gz
         state: absent
       become: true
 
-- name: Zellij | Copy Zellij config
+- name: Zellij | Copy config
   ansible.builtin.copy:
     src: "{{ role_path }}/files/zellij"
     dest: "{{ ansible_user_dir }}/.config/"
@@ -93,7 +96,8 @@
     state: directory
     mode: '755'
 
-- name: Zellij | Downloading zjstatus Release
+- name: Zellij | Downloading latest zjstatus release
   ansible.builtin.get_url:
     url: https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm
     dest: "{{ ansible_user_dir }}/.config/zellij/plugins/"
+    mode: '644'

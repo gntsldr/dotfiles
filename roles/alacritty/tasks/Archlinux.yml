@@ -1,5 +1,5 @@
 ---
-- name: System | Install | {{ ansible_distribution }}
+- name: Alacritty | Install | {{ ansible_distribution }}
   community.general.pacman:
     name:
       - alacritty

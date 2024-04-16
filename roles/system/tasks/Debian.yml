@@ -1,5 +1,5 @@
 ---
-- name: System | Update APT Repos and Upgrade APT Packages | {{ ansible_distribution }}
+- name: System | Update APT repos and upgrade APT packages | {{ ansible_distribution }}
   ansible.builtin.apt:
     update_cache: true
     upgrade: full

@@ -1,0 +1,7 @@
+---
+- name: duf | Install | {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name:
+      - duf
+    state: present
+  become: true

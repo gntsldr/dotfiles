@@ -1,10 +1,10 @@
 ---
-- name: "btop | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: btop | Checking for distribution config | {{ ansible_distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: ncdu_distribution_config
 
-- name: "btop | Run Tasks: {{ ansible_distribution }}"
+- name: btop | Run tasks | {{ ansible_distribution }}
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: ncdu_distribution_config.stat.exists
 
