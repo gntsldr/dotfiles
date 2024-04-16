@@ -5,3 +5,8 @@
       - bat
     state: present
   become: true
+
+- name: bat | Set batcat as bat | {{ ansible_distribution }}
+  ansible.builtin.shell:
+    cmd: ln -s $(which batcat) ~/.local/bin/bat
+    creates: ~/.local/bin/bat
