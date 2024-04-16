@@ -20,7 +20,7 @@
 
 - name: fzf | Registering fzf latest version
   ansible.builtin.set_fact:
-    fzf_latest_version: "{{ fzf_latest_release.stdout|default('') }}"
+    fzf_latest_version: "{{ fzf_latest_release.stdout | default('') }}"
 
 - name: fzf | Getting version information
   ansible.builtin.shell:
@@ -53,6 +53,7 @@
       ansible.builtin.get_url:
         url: https://github.com/junegunn/fzf/releases/download/{{ fzf_latest_release }}/{{ fzf_file }}.tar.gz
         dest: /tmp/
+        mode: '755'
 
     - name: fzf | Check if a previous installation exists
       ansible.builtin.stat:

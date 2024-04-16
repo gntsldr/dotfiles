@@ -53,6 +53,7 @@
       ansible.builtin.get_url:
         url: https://github.com/bootandy/dust/releases/download/{{ dust_latest_release }}/{{ dust_file }}.tar.gz
         dest: /tmp/
+        mode: '755'
 
     - name: dust | Check if a previous installation exists
       ansible.builtin.stat:
