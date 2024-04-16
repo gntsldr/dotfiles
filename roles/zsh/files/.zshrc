@@ -61,7 +61,6 @@ alias tree='eza --tree --icons=auto'
 alias df='dysk'
 alias dysk='dysk --units binary'
 alias du='dust'
-alias dust='dust -r'
 #alias cat='bat'
 
 # Enable zsh-autosuggestions
