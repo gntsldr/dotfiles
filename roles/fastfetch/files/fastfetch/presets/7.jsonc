@@ -64,11 +64,6 @@
             "keyColor": "blue"
         },
         {
-            "type": "wallpaper",
-            "key": "└󰸉",
-            "keyColor": "blue"
-        },
-        {
             "type": "terminal",
             "key": "└",
             "keyColor": "blue"
@@ -92,7 +87,7 @@
         },
         {
             "type": "disk",
-            "folders": "/:/home:/boot:/efi",
+            "folders": "/:/home",
             "key": "├",
             "keyColor": "green"
         },

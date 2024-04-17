@@ -9,6 +9,7 @@ default_roles:
   - dust
   - dysk
   - eza
+#  - fastfetch
   - fd
 #  - fonts
   - fzf

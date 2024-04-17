@@ -117,12 +117,7 @@
         },
         {
             "type": "icons",
-            "key": "├─󰀻",
-            "keyColor": "yellow"
-        },
-        {
-            "type": "wallpaper",
-            "key": "╰─󰸉",
+            "key": "╰─󰀻",
             "keyColor": "yellow"
         },
 
