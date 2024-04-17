@@ -157,7 +157,7 @@
       "separator",
       {
           "type": "colors",
-          "paddingLeft": 2,
+          "paddingLeft": 1,
           "symbol": "circle"
       }
   ]
