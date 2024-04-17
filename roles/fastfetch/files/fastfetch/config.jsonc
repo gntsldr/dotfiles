@@ -45,11 +45,11 @@
 /*       {
           "type": "swap",
           "key": "  󰓡"
-      }, */
-      // {
-          // "type": "display",
-          // "key": "  󰍹"
-      // },
+      },
+      {
+          "type": "display",
+          "key": "  󰍹"
+      },
       {
           "type": "brightness",
           "key": "  󰃞"
@@ -66,14 +66,14 @@
           "type": "bluetooth",
           "key": "  "
       },
-      // {
-          // "type": "sound",
-          // "key": "  "
-      // },
+      {
+          "type": "sound",
+          "key": "  "
+      },
       {
           "type": "gamepad",
           "key": "  "
-      },
+      }, */
 /*       {
           "type": "custom", // SoftwareStart
           "format": "├─────────── \u001b[1mSoftware Information\u001b[0m ───────────┤"
