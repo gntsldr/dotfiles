@@ -95,3 +95,10 @@
         path: /tmp/{{ fastfetch_file }}
         state: absent
       become: true
+
+- name: Fastfetch | Copy config
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/fastfetch"
+    dest: "{{ ansible_user_dir }}/.config/"
+    mode: '644'
+    directory_mode: '755'
