@@ -132,6 +132,7 @@
           "type": "media",
           "key": "  󰝚"
       },
+      "separator",
       {
           "type": "localip",
           "key": "  󰩟",
@@ -145,7 +146,7 @@
           "type": "wifi",
           "key": "  ",
           "format": "{4}" // ssid
-      },
+      }
 /*       {
           "type": "locale",
           "key": "  "
@@ -154,11 +155,5 @@
           "type": "custom", // InformationEnd
           "format": "└────────────────────────────────────────────┘"
       }, */
-      "separator",
-      {
-          "type": "colors",
-          "paddingLeft": 1,
-          "symbol": "circle"
-      }
   ]
 }
