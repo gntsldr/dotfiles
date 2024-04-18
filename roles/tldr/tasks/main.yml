@@ -70,7 +70,7 @@
     - name: tldr | Create temp folder
       ansible.builtin.file:
         path: /tmp/{{ tldr_file }}
-        state: present
+        state: directory
       become: true
 
     - name: tldr | Extract tarball
