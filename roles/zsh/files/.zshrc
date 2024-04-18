@@ -69,6 +69,7 @@ alias df='dysk'
 alias dysk='dysk --units binary'
 alias du='dust'
 #alias cat='bat'
+alias neofetch='fastfetch -c ~/.config/fastfetch/presets/neofetch.jsonc'
 
 # Enable zsh-autosuggestions
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
