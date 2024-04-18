@@ -12,148 +12,174 @@
       "separator": "  "
   },
   "modules": [
+      "break",
       {
         "type": "title"
       },
-      "separator",
-/*       {
-          "type": "custom", // HardwareStart
-          "format": "Hardware Information" // `\u001b` is `\033`, or `\e`
+      {
+        "type": "custom",
+        "format": "\u001b[1m┌──────────────────────────────────────────────────────────┐"
       },
-      "separator", */
       {
           "type": "host",
-          "key": "  󰌢"
+          "key": "  󰌢",
+          "keyColor": "blue",
+          "format": "{2}"
       },
       {
           "type": "cpu",
-          "key": "  󰻠"
+          "key": "  󰻠",
+          "keyColor": "blue",
+          "format": "{1}"
       },
       {
           "type": "gpu",
-          "key": "  󰍛"
+          "key": "  󰍛",
+          "keyColor": "blue",
+          "format": "{2}"
       },
       {
           "type": "disk",
           "folders": "/",
-          "key": "  "
+          "key": "  ",
+          "keyColor": "blue",
+          "format": "{/1}{-}{/}{/2}{-}{/}{} / {}"
       },
       {
           "type": "memory",
-          "key": "  󰑭"
+          "key": "  󰑭",
+          "keyColor": "blue",
+          "format": "{/1}{-}{/}{/2}{-}{/}{} / {}"
       },
 /*       {
           "type": "swap",
-          "key": "  󰓡"
+          "key": " 󰓡",
+          "keyColor": "blue" 
       },
       {
           "type": "display",
-          "key": "  󰍹"
+          "key": " 󰍹",
+          "keyColor": "blue" 
       },
       {
           "type": "brightness",
-          "key": "  󰃞"
+          "key": " 󰃞",
+          "keyColor": "blue" 
       },
       {
           "type": "battery",
-          "key": "  "
+          "key": " ",
+          "keyColor": "blue" 
       },
       {
           "type": "poweradapter",
-          "key": "  "
+          "key": " ",
+          "keyColor": "blue" 
       },
       {
           "type": "bluetooth",
-          "key": "  "
+          "key": " ",
+          "keyColor": "blue" 
       },
       {
           "type": "sound",
-          "key": "  "
+          "key": " ",
+          "keyColor": "blue" 
       },
       {
           "type": "gamepad",
-          "key": "  "
+          "key": " ",
+          "keyColor": "blue" 
       }, */
-/*       {
-          "type": "custom", // SoftwareStart
-          "format": "├─────────── \u001b[1mSoftware Information\u001b[0m ───────────┤"
-      }, */
-      "separator",
+      "break",
       {
           "type": "os",
-          "key": "  " // Just get your distro's logo off nerdfonts.com
+          "key": "  ", // Just get your distro's logo off nerdfonts.com
+          "keyColor": "green",
+          "format": "{3}"
       },
       {
           "type": "kernel",
           "key": "  ",
-          "format": "{1} {2}"
+          "keyColor": "green"
       },
-      {
+/*       {
           "type": "lm",
-          "key": "  󰧨"
-      },
+          "key": " 󰧨",
+          "keyColor": "green"
+      }, */
       {
           "type": "de",
-          "key": "  "
+          "key": "  ",
+          "keyColor": "green"
       },
       {
           "type": "wm",
-          "key": "  "
+          "key": "  ",
+          "keyColor": "green"
       },
       {
           "type": "shell",
-          "key": "  "
+          "key": "  ",
+          "keyColor": "green"
       },
       {
           "type": "terminal",
-          "key": "  "
+          "key": "  ",
+          "keyColor": "green"
       },
-      {
+/*       {
           "type": "terminalfont",
-          "key": "  "
-      },
+          "key": " ",
+          "keyColor": "green",
+          "format": "{2}"
+      }, */
       {
           "type": "theme",
-          "key": "  󰉼"
+          "key": "  󰉼",
+          "keyColor": "green"
       },
       {
           "type": "icons",
-          "key": "  󰀻"
+          "key": "  󰀻",
+          "keyColor": "green"
       },
       {
           "type": "packages",
-          "key": "  󰏖"
+          "key": "  󰏖",
+          "keyColor": "green"
       },
       {
           "type": "uptime",
-          "key": "  󰅐"
+          "key": "  󰅐",
+          "keyColor": "green"
       },
-      {
+/*       {
           "type": "media",
-          "key": "  󰝚"
-      },
-      "separator",
+          "key": " 󰝚",
+          "keyColor": "green"
+      }, */
+      "break",
       {
           "type": "localip",
           "key": "  󰩟",
+          "keyColor": "yellow",
           "compact": true
       },
       {
           "type": "publicip",
-          "key": "  󰩠"
+          "key": "  󰩠",
+          "keyColor": "yellow"
       },
       {
           "type": "wifi",
           "key": "  ",
+          "keyColor": "yellow",
           "format": "{4}" // ssid
-      }
-/*       {
-          "type": "locale",
-          "key": "  "
       },
       {
-          "type": "custom", // InformationEnd
-          "format": "└────────────────────────────────────────────┘"
-      }, */
+        "type": "custom",
+        "format": "\u001b[1m└──────────────────────────────────────────────────────────┘"
+      }
   ]
 }
