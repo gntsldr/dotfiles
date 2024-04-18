@@ -67,12 +67,6 @@
       become: true
       when: tldr_binary.stat.exists
 
-    - name: tldr | Create temp folder
-      ansible.builtin.file:
-        path: /tmp/{{ tldr_file }}
-        state: directory
-      become: true
-
     - name: tldr | Extract tarball
       ansible.builtin.unarchive:
         src: /tmp/{{ tldr_file }}.tar.gz
