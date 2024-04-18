@@ -1,0 +1,79 @@
+---
+- name: lazydocker | Checking for distribution config | {{ ansible_distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: lazydocker_distribution_config
+
+- name: lazydocker | Run tasks | {{ ansible_distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  when: lazydocker_distribution_config.stat.exists
+
+- name: lazydocker | Download latest version JSON
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/jesseduffield/lazydocker/releases/latest
+  register: lazydocker_latest_version_json
+  changed_when: false
+
+- name: lazydocker | Registering lazydocker latest release
+  ansible.builtin.set_fact:
+    lazydocker_latest_release: "{{ lazydocker_latest_version_json.json.tag_name }}"
+
+- name: lazydocker | Registering lazydocker latest version
+  ansible.builtin.set_fact:
+    lazydocker_latest_version: "{{ lazydocker_latest_release.stdout | default('') }}"
+
+- name: lazydocker | Getting current version information
+  ansible.builtin.shell:
+    cmd: /usr/local/bin/lazydocker --version | grep -oP 'version=\K[^,]+' | awk 'NR==1' | sed 's/^/v/'
+  args:
+    executable: /bin/bash
+  register: current_lazydocker_version
+  changed_when: false
+  failed_when: false
+
+#- name: lazydocker | Show current_lazydocker_version debug
+#  ansible.builtin.debug:
+#    var: current_lazydocker_version.stdout
+#  when: current_lazydocker_version.stat.exists
+
+#- name: lazydocker | Show lazydocker_latest_release debug
+#  ansible.builtin.debug:
+#    var: lazydocker_latest_release
+
+- name: lazydocker | Install
+  when: lazydocker_latest_release not in current_lazydocker_version.stdout|default('')
+  block:
+    # regex_replace('^.', '') removes the first character from the string (the 'v' in the version number)
+    - name: lazydocker | Define lazydocker filename
+      ansible.builtin.set_fact:
+        lazydocker_file: "lazydocker_{{ lazydocker_latest_release | regex_replace('^.', '') }}_Linux_x86_64"
+
+    - name: lazydocker | Download latest lazydocker Release
+      ansible.builtin.get_url:
+        url: "https://github.com/jesseduffield/lazydocker/releases/download/{{ lazydocker_latest_release }}/{{ lazydocker_file }}.tar.gz"
+        dest: /tmp/
+
+    - name: lazydocker | Check if a previous lazydocker installation exists
+      ansible.builtin.stat:
+        path: /usr/local/bin/lazydocker
+      register: lazydocker_folder
+
+    - name: lazydocker | Remove previous lazydocker installation
+      ansible.builtin.file:
+        path: /usr/local/bin/lazydocker
+        state: absent
+      become: true
+      when: lazydocker_folder.stat.exists
+
+    - name: lazydocker | Extract lazydocker from tarball
+      ansible.builtin.unarchive:
+        src: "/tmp/{{ lazydocker_file }}.tar.gz"
+        dest: /usr/local/bin/
+        creates: /usr/local/bin/lazydocker
+        remote_src: true
+      become: true
+
+    - name: lazydocker | Remove lazydocker tarball
+      ansible.builtin.file:
+        path: "/tmp/{{ lazydocker_file }}.tar.gz"
+        state: absent
