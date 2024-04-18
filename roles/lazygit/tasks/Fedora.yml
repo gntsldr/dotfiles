@@ -8,6 +8,6 @@
 - name: lazygit | Install | {{ ansible_distribution }}
   ansible.builtin.dnf:
     name:
-      - lazugit
+      - lazygit
     state: present
   become: true
