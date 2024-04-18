@@ -77,7 +77,7 @@
       ansible.builtin.unarchive:
         src: /tmp/{{ tldr_file }}.tar.gz
         dest: /tmp/{{ tldr_file }}
-        creates: /tmp/{{ tldr_file }}
+        creates: /tmp/{{ tldr_file }}/tldr
         remote_src: true
       become: true
 
