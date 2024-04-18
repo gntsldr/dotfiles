@@ -1,7 +1,0 @@
----
-- name: tldr | Install | {{ ansible_distribution }}
-  community.general.pacman:
-    name:
-      - tldr
-    state: present
-  become: true

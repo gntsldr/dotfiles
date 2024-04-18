@@ -4,6 +4,94 @@
     path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
   register: tldr_distribution_config
 
-- name: tldr | Run Tasks | {{ ansible_distribution }}
+- name: tldr | Run tasks | {{ ansible_distribution }}
   ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when: tldr_distribution_config.stat.exists
+
+- name: tldr | Download latest version JSON
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/tldr-pages/tlrc/releases/latest
+  register: tldr_latest_version_json
+  changed_when: false
+
+- name: tldr | Registering tldr latest release
+  ansible.builtin.set_fact:
+    tldr_latest_release: "{{ tldr_latest_version_json.json.tag_name }}"
+
+- name: tldr | Registering tldr latest version
+  ansible.builtin.set_fact:
+    tldr_latest_version: "{{ tldr_latest_release.stdout | default('') }}"
+
+- name: tldr | Getting version information
+  ansible.builtin.shell:
+    cmd: |
+      /usr/local/bin/tlrc --version | cut -d ' ' -f 2
+  register: current_tldr_version
+  changed_when: false
+  failed_when: false
+
+- name: tldr | Registering tldr Current Version
+  ansible.builtin.set_fact:
+    tldr_current_version: "v{{ current_tldr_version.stdout }}"
+
+# - name: "tldr | Show current_tldr_version debug"
+#   ansible.builtin.debug:
+#     var: tldr_current_version
+
+# - name: "tldr | Show tldr_latest_release debug"
+#   ansible.builtin.debug:
+#     var: tldr_latest_release
+
+- name: tldr | Install
+  when: tldr_latest_release not in tldr_current_version|default('')
+  block:
+    - name: tldr | Define tldr_file
+      ansible.builtin.set_fact:
+        tldr_file: "tlrc-{{ tldr_latest_release }}-x86_64-unknown-linux-gnu"
+
+    - name: tldr | Downloading release
+      ansible.builtin.get_url:
+        url: https://github.com/tldr-pages/tlrc/releases/download/{{ tldr_latest_release }}/{{ tldr_file }}.tar.gz
+        dest: /tmp/
+        mode: '755'
+
+    - name: tldr | Check if a previous installation exists
+      ansible.builtin.stat:
+        path: /usr/local/bin/tldr
+      register: tldr_binary
+
+    - name: tldr | Remove current installation
+      ansible.builtin.file:
+        path: /usr/local/bin/tldr
+        state: absent
+      become: true
+      when: tldr_binary.stat.exists
+
+    - name: tldr | Extract tarball
+      ansible.builtin.unarchive:
+        src: /tmp/{{ tldr_file }}.tar.gz
+        dest: /tmp/{{ tldr_file }}
+        creates: /tmp/{{ tldr_file }}
+        remote_src: true
+      become: true
+
+    - name: tldr | Move binary
+      ansible.builtin.copy:
+        src: /tmp/{{ tldr_file }}/tldr
+        dest: /usr/local/bin/tldr
+        mode: '755'
+        directory_mode: '755'
+        remote_src: true
+      become: true
+
+    - name: tldr | Remove tarball
+      ansible.builtin.file:
+        path: /tmp/{{ tldr_file }}.tar.gz
+        state: absent
+      become: true
+
+    - name: tldr | Remove temp folder
+      ansible.builtin.file:
+        path: /tmp/{{ tldr_file }}
+        state: absent
+      become: true
