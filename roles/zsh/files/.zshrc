@@ -19,6 +19,13 @@ function su()
    title $(hostname)
 }
 
+# Reset the window title after exiting zellij
+#function zellij()
+#{
+#   /usr/local/bin/zellij "$@"
+#   title $(hostname)
+#}
+
 #DISABLE_AUTO_TITLE="true"
 
 # Lines configured by zsh-newuser-install
