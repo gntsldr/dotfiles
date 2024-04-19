@@ -90,7 +90,7 @@
         state: absent
       become: true
 
-    - name: Fasfetch | Remove temp folder
+    - name: Fastfetch | Remove temp folder
       ansible.builtin.file:
         path: /tmp/{{ fastfetch_file }}
         state: absent
