@@ -5,6 +5,7 @@ default_roles:
   - bash
 #  - bat
   - btop
+  - delta
 #  - duf
   - dust
   - dysk
@@ -15,6 +16,7 @@ default_roles:
   - fzf
   - git
 #  - hyprland
+#  - lazydocker
 #  - lazygit
   - micro
 #  - nano

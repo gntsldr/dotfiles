@@ -27,6 +27,49 @@
     scope: global
     value: "{{ ansible_user_dir }}/.ssh/id_ed25519.pub"
 
+- name: Set core.pager to delta
+  community.general.git_config:
+    name: core.pager
+    scope: global
+    value: delta
+
+- name: Set interactive.diffFilter to delta --color-only
+  community.general.git_config:
+    name: interactive.diffFilter
+    scope: global
+    value: delta --color-only
+
+- name: Set delta.navigate to true
+  community.general.git_config:
+    name: delta.navigate
+    scope: global
+    value: true
+
+# Uncomment and customize the following lines if needed
+# - name: Set delta.dark to true
+#   community.general.git_config:
+#     scope: global
+#     name: delta.dark
+#     value: true
+#
+# - name: Set delta.light to true
+#   community.general.git_config:
+#     scope: global
+#     name: delta.light
+#     value: true
+
+- name: Set merge.conflictstyle to diff3
+  community.general.git_config:
+    name: merge.conflictstyle
+    scope: global
+    value: diff3
+
+- name: Set diff.colorMoved to default
+  community.general.git_config:
+    name: diff.colorMoved
+    scope: global
+    value: default
+
 # - name: "Git | Set fetch.prune"
 #   community.general.git_config:
 #     name: fetch.prune
