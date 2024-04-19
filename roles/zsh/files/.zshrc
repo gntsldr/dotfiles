@@ -68,7 +68,7 @@ alias tree='eza --tree --icons=auto'
 alias df='dysk'
 alias dysk='dysk --units binary'
 alias du='dust'
-#alias cat='bat'
+alias cat='bat --paging=never'
 alias neofetch='fastfetch -c ~/.config/fastfetch/presets/neofetch.jsonc'
 
 # Enable zsh-autosuggestions
