@@ -77,7 +77,7 @@
 
     - name: GitUI | Move binary
       ansible.builtin.copy:
-        src: /tmp/{{ gitui_file }}/gitui
+        src: /tmp/gitui
         dest: /usr/local/bin/gitui
         mode: '755'
         directory_mode: '755'
