@@ -1,0 +1,91 @@
+---
+- name: GitUI | Checking for distribution config | {{ ansible_distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: gitui_distribution_config
+
+- name: GitUI | Run tasks | {{ ansible_distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  when: gitui_distribution_config.stat.exists
+
+- name: GitUI | Download latest version JSON
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/extrawurst/gitui/releases/latest
+  register: gitui_latest_version_json
+  changed_when: false
+
+- name: GitUI | Registering gitui latest release
+  ansible.builtin.set_fact:
+    gitui_latest_release: "{{ gitui_latest_version_json.json.tag_name }}"
+
+- name: GitUI | Registering gitui latest version
+  ansible.builtin.set_fact:
+    gitui_latest_version: "{{ gitui_latest_release.stdout | default('') }}"
+
+- name: GitUI | Getting version information
+  ansible.builtin.shell:
+    cmd: |
+      /usr/local/bin/gitui --version | cut -d ' ' -f 2
+  register: current_gitui_version
+  changed_when: false
+  failed_when: false
+
+- name: GitUI | Registering gitui Current Version
+  ansible.builtin.set_fact:
+    gitui_current_version: "v{{ current_gitui_version.stdout }}"
+
+# - name: "GitUI | Show current_gitui_version debug"
+#   ansible.builtin.debug:
+#     var: gitui_current_version
+
+# - name: "GitUI | Show gitui_latest_release debug"
+#   ansible.builtin.debug:
+#     var: gitui_latest_release
+
+- name: GitUI | Install
+  when: gitui_latest_release not in gitui_current_version|default('')
+  block:
+    - name: GitUI | Define gitui_file
+      ansible.builtin.set_fact:
+        gitui_file: "gitui-linux-x86_64"
+
+    - name: GitUI | Downloading release
+      ansible.builtin.get_url:
+        url: https://github.com/extrawurst/gitui/releases/download/{{ gitui_latest_release }}/{{ gitui_file }}.tar.gz
+        dest: /tmp/
+        mode: '755'
+
+    - name: GitUI | Check if a previous installation exists
+      ansible.builtin.stat:
+        path: /usr/local/bin/gitui
+      register: gitui_binary
+
+    - name: GitUI | Remove current installation
+      ansible.builtin.file:
+        path: /usr/local/bin/gitui
+        state: absent
+      become: true
+      when: gitui_binary.stat.exists
+
+    - name: GitUI | Extract tarball
+      ansible.builtin.unarchive:
+        src: /tmp/{{ gitui_file }}.tar.gz
+        dest: /tmp/
+        creates: /tmp/{{ gitui_file }}
+        remote_src: true
+      become: true
+
+    - name: GitUI | Move binary
+      ansible.builtin.copy:
+        src: /tmp/{{ gitui_file }}/gitui
+        dest: /usr/local/bin/gitui
+        mode: '755'
+        directory_mode: '755'
+        remote_src: true
+      become: true
+
+    - name: GitUI | Remove tarball
+      ansible.builtin.file:
+        path: /tmp/{{ gitui_file }}.tar.gz
+        state: absent
+      become: true
