@@ -25,6 +25,7 @@ default_roles:
 #  - neofetch
   - neovim
 #  - oxker
+#  - procs
   - ripgrep
 #  - rofi
   - ssh

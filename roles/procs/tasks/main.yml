@@ -1,0 +1,82 @@
+---
+- name: procs | Checking for distribution config | {{ ansible_distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: procs_distribution_config
+
+- name: procs | Run tasks | {{ ansible_distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  when: procs_distribution_config.stat.exists
+
+- name: procs | Download latest version JSON
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/dalance/procs/releases/latest
+  register: procs_latest_version_json
+  changed_when: false
+
+- name: procs | Registering procs latest release
+  ansible.builtin.set_fact:
+    procs_latest_release: "{{ procs_latest_version_json.json.tag_name }}"
+
+- name: procs | Registering procs latest version
+  ansible.builtin.set_fact:
+    procs_latest_version: "{{ procs_latest_release.stdout | default('') }}"
+
+- name: procs | Getting version information
+  ansible.builtin.shell:
+    cmd: |
+      /usr/local/bin/procs --version | cut -d ' ' -f 2
+  register: current_procs_version
+  changed_when: false
+  failed_when: false
+
+- name: procs | Registering procs Current Version
+  ansible.builtin.set_fact:
+    procs_current_version: "v{{ current_procs_version.stdout }}"
+
+# - name: "procs | Show current_procs_version debug"
+#   ansible.builtin.debug:
+#     var: procs_current_version
+
+# - name: "procs | Show procs_latest_release debug"
+#   ansible.builtin.debug:
+#     var: procs_latest_release
+
+- name: procs | Install
+  when: procs_latest_release not in procs_current_version|default('')
+  block:
+    - name: procs | Define procs_file
+      ansible.builtin.set_fact:
+        procs_file: "procs-v{{ procs_latest_release }}-x86_64-linux"
+
+    - name: procs | Downloading release
+      ansible.builtin.get_url:
+        url: https://github.com/dalance/procs/releases/download/{{ procs_latest_release }}/{{ procs_file }}.tar.gz
+        dest: /tmp/
+        mode: '755'
+
+    - name: procs | Check if a previous installation exists
+      ansible.builtin.stat:
+        path: /usr/local/bin/procs
+      register: procs_binary
+
+    - name: procs | Remove current installation
+      ansible.builtin.file:
+        path: /usr/local/bin/procs
+        state: absent
+      become: true
+      when: procs_binary.stat.exists
+
+    - name: procs | Extract tarball
+      ansible.builtin.unarchive:
+        src: /tmp/{{ procs_file }}.tar.gz
+        dest: /usr/local/bin/
+        creates: /usr/local/bin/{{ procs_file }}
+        remote_src: true
+      become: true
+
+    - name: procs | Remove tarball
+      ansible.builtin.file:
+        path: /tmp/{{ procs_file }}.tar.gz
+        state: absent
+      become: true
