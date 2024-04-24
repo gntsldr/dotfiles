@@ -51,7 +51,7 @@
 
     - name: procs | Downloading release
       ansible.builtin.get_url:
-        url: https://github.com/dalance/procs/releases/download/{{ procs_latest_release }}/{{ procs_file }}.tar.gz
+        url: https://github.com/dalance/procs/releases/download/{{ procs_latest_release }}/{{ procs_file }}.zip
         dest: /tmp/
         mode: '755'
 
@@ -69,7 +69,7 @@
 
     - name: procs | Extract tarball
       ansible.builtin.unarchive:
-        src: /tmp/{{ procs_file }}.tar.gz
+        src: /tmp/{{ procs_file }}.zip
         dest: /usr/local/bin/
         creates: /usr/local/bin/{{ procs_file }}
         remote_src: true
@@ -77,6 +77,6 @@
 
     - name: procs | Remove tarball
       ansible.builtin.file:
-        path: /tmp/{{ procs_file }}.tar.gz
+        path: /tmp/{{ procs_file }}.zip
         state: absent
       become: true
