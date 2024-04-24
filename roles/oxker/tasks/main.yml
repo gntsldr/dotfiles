@@ -1,0 +1,82 @@
+---
+- name: oxker | Checking for distribution config | {{ ansible_distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: oxker_distribution_config
+
+- name: oxker | Run tasks | {{ ansible_distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  when: oxker_distribution_config.stat.exists
+
+- name: oxker | Download latest version JSON
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/mrjackwills/oxker/releases/latest
+  register: oxker_latest_version_json
+  changed_when: false
+
+- name: oxker | Registering oxker latest release
+  ansible.builtin.set_fact:
+    oxker_latest_release: "{{ oxker_latest_version_json.json.tag_name }}"
+
+- name: oxker | Registering oxker latest version
+  ansible.builtin.set_fact:
+    oxker_latest_version: "{{ oxker_latest_release.stdout | default('') }}"
+
+- name: oxker | Getting version information
+  ansible.builtin.shell:
+    cmd: |
+      /usr/local/bin/oxker --version | cut -d ' ' -f 2
+  register: current_oxker_version
+  changed_when: false
+  failed_when: false
+
+- name: oxker | Registering oxker Current Version
+  ansible.builtin.set_fact:
+    oxker_current_version: "v{{ current_oxker_version.stdout }}"
+
+# - name: "oxker | Show current_oxker_version debug"
+#   ansible.builtin.debug:
+#     var: oxker_current_version
+
+# - name: "oxker | Show oxker_latest_release debug"
+#   ansible.builtin.debug:
+#     var: oxker_latest_release
+
+- name: oxker | Install
+  when: oxker_latest_release not in oxker_current_version|default('')
+  block:
+    - name: oxker | Define oxker_file
+      ansible.builtin.set_fact:
+        oxker_file: "oxker_linux_x86_64"
+
+    - name: oxker | Downloading release
+      ansible.builtin.get_url:
+        url: https://github.com/mrjackwills/oxker/releases/download/{{ oxker_latest_release }}/{{ oxker_file }}.tar.gz
+        dest: /tmp/
+        mode: '755'
+
+    - name: oxker | Check if a previous installation exists
+      ansible.builtin.stat:
+        path: /usr/local/bin/oxker
+      register: oxker_binary
+
+    - name: oxker | Remove current installation
+      ansible.builtin.file:
+        path: /usr/local/bin/oxker
+        state: absent
+      become: true
+      when: oxker_binary.stat.exists
+
+    - name: oxker | Extract tarball
+      ansible.builtin.unarchive:
+        src: /tmp/{{ oxker_file }}.tar.gz
+        dest: /usr/local/bin/
+        creates: /usr/local/bin/{{ oxker_file }}
+        remote_src: true
+      become: true
+
+    - name: oxker | Remove tarball
+      ansible.builtin.file:
+        path: /tmp/{{ oxker_file }}.tar.gz
+        state: absent
+      become: true

@@ -3,7 +3,7 @@ default_roles:
   - system
 #  - alacritty
   - bash
-#  - bat
+  - bat
   - btop
   - delta
 #  - duf
@@ -24,6 +24,7 @@ default_roles:
   - ncdu
 #  - neofetch
   - neovim
+#  - oxker
   - ripgrep
 #  - rofi
   - ssh
@@ -33,7 +34,7 @@ default_roles:
 #  - tmux
 #  - waybar
 #  - wofi
-#  - zellij
+  - zellij
   - zoxide
   - zsh
 
