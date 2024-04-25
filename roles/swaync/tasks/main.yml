@@ -1,0 +1,9 @@
+---
+- name: SwayNC | Checking for distribution config | {{ ansible_distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: tmux_distribution_config
+
+- name: SwayNC | Run tasks | {{ ansible_distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  when: tmux_distribution_config.stat.exists

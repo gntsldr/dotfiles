@@ -1,0 +1,13 @@
+---
+- name: SwayNC | Enable swww COPR repository | {{ ansible_distribution }}
+  community.general.copr:
+    name: erikreider/SwayNotificationCenter
+    state: enabled
+  become: true
+
+- name: SwayNC | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - SwayNotificationCenter
+    state: present
+  become: true
