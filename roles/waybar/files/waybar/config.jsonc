@@ -19,6 +19,7 @@
     ],
     "modules-right": [
 //        "idle_inhibitor",
+//		"mpris",
         "pulseaudio",
         "network",
 //        "power-profiles-daemon",
@@ -28,7 +29,8 @@
 //        "backlight",
 //        "keyboard-state",
 //		"custom/weather",
-        "battery"
+        "battery",
+        "custom/notification"
 //        "tray"
     ],
     // Modules configuration
@@ -162,8 +164,8 @@
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": "",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " ",
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
@@ -173,9 +175,21 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": ["", "", " "]
         },
         "on-click": "pavucontrol"
+    },
+    "mpris": {
+        "format": "{status_icon} {artist} - {title}",
+        "player-icons": {
+            "default": " "
+        },
+        "status-icons": {
+            "playing": " ",
+            "paused": " ",
+            "stopped": " "
+        },
+        "ignored-players": ["qutebrowser"]
     },
 
     "bluetooth": {
@@ -186,6 +200,28 @@
         "on-click": "blueman-manager",
         "format-no-controller": ""
     },
+
+    "custom/notification": {
+	    "tooltip": false,
+	    "format": "{icon}",
+	    "format-icons": {
+	      "notification": " <span foreground='red'><sup></sup></span>",
+	      "none": "",
+	      "dnd-notification": " <span foreground='red'><sup></sup></span>",
+	      "dnd-none": " ",
+	      "inhibited-notification": " <span foreground='red'><sup></sup></span>",
+	      "inhibited-none": " ",
+	      "dnd-inhibited-notification": " <span foreground='red'><sup></sup></span>",
+	      "dnd-inhibited-none": " "
+    },
+
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
 
     "user": {
         "format": "{user}",
