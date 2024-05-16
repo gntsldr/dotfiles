@@ -28,11 +28,20 @@ function su()
 
 #DISABLE_AUTO_TITLE="true"
 
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
-SAVEHIST=1000
-# End of lines configured by zsh-newuser-install
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+# setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+setopt APPEND_HISTORY            # append to history file
 
 # The following lines were added by compinstall
 zstyle :compinstall filename "$HOME/.zshrc"
@@ -42,20 +51,20 @@ compinit
 # End of lines added by compinstall
 
 # key bindings
-bindkey "^[[3~" delete-char #del
-bindkey "2~" delete-char #shift+del
-bindkey "^[[H" beginning-of-line #home
-bindkey ";2H" beginning-of-line #shift+home
-bindkey "^[[F" end-of-line #end
-bindkey ";2F" end-of-line #shift+end
-bindkey ";2A" beginning-of-line #shift+up
-bindkey ";2B" end-of-line #shift+down
-bindkey ";5A" beginning-of-line #ctrl+up
-bindkey ";5B" end-of-line #ctrl+down
-bindkey ";2D" backward-word #shift+left
-bindkey ";2C" forward-word #shift+right
-bindkey ";5D" backward-word #ctrl+left
-bindkey ";5C" forward-word #ctrl+right
+bindkey "\e[[3~" delete-char #del
+bindkey "\e[3;2~" delete-word #shift+del
+bindkey "\eOH" beginning-of-line #home
+bindkey "\e[1;2H" beginning-of-line #shift+home
+bindkey "\eOF" end-of-line #end
+bindkey "\e[1;2F" end-of-line #shift+end
+bindkey "\e[1;2A" beginning-of-line #shift+up
+bindkey "\e[1;2B" end-of-line #shift+down
+bindkey "\e[1;5A" beginning-of-line #ctrl+up
+bindkey "\e[1;5B" end-of-line #ctrl+down
+bindkey "\e[1;2D" backward-word #shift+left
+bindkey "\e[1;2C" forward-word #shift+right
+bindkey "\e[1;5D" backward-word #ctrl+left
+bindkey "\e[1;5C" forward-word #ctrl+right
 
 # Add aliases for color
 alias egrep='egrep --color=auto'
@@ -71,11 +80,16 @@ alias du='dust'
 alias cat='bat --paging=never'
 alias neofetch='fastfetch -c ~/.config/fastfetch/presets/neofetch.jsonc'
 
+source ~/zsh/plugins/fzf-tab.plugin.zsh
+
 # Enable zsh-autosuggestions
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Enable zsh-syntax-highlighting
 #source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 autoload -U +X bashcompinit && bashcompinit
 
