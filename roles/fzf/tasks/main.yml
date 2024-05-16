@@ -82,3 +82,15 @@
         path: /tmp/{{ fzf_file }}.tar.gz
         state: absent
       become: true
+
+- name: fzf-tab | Download fzf-tab
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/Aloxaf/fzf-tab/master/fzf-tab.zsh
+    dest: "{{ ansible_user_dir }}/.config/zsh/plugins/fzf-tab/fzf-tab.zsh"
+    mode: '755'
+
+- name: fzf-tab | Download plugin
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/Aloxaf/fzf-tab/master/fzf-tab.plugin.zsh
+    dest: "{{ ansible_user_dir }}/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
+    mode: '755'
