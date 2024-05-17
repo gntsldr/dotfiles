@@ -83,6 +83,18 @@
         state: absent
       become: true
 
+- name: fzf-tab | Ensures plugins directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/zsh/plugins"
+    state: directory
+    mode: '755'
+
+- name: fzf-tab | Ensures fzf-tan directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/zsh/plugins/fzf-tab"
+    state: directory
+    mode: '755'
+
 - name: fzf-tab | Download fzf-tab
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/Aloxaf/fzf-tab/master/fzf-tab.zsh
