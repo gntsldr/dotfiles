@@ -43,12 +43,9 @@ setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt APPEND_HISTORY            # append to history file
 
-# The following lines were added by compinstall
-zstyle :compinstall filename "$HOME/.zshrc"
-
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+# Load and initialize completion system
+autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
 
 # key bindings
 bindkey "\e[[3~" delete-char #del
@@ -90,8 +87,6 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
-autoload -U +X bashcompinit && bashcompinit
 
 # Autocomplete for Terraform
 complete -o nospace -C /usr/bin/terraform terraform
