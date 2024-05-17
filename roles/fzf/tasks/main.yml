@@ -87,4 +87,3 @@
   ansible.builtin.git:
     repo: https://github.com/Aloxaf/fzf-tab
     dest: "{{ ansible_user_dir }}/.config/zsh/plugins/fzf-tab"
-    force: true
