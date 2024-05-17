@@ -89,7 +89,7 @@
     state: directory
     mode: '755'
 
-- name: fzf-tab | Ensures fzf-tan directory exists
+- name: fzf-tab | Ensures fzf-tab directory exists
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/zsh/plugins/fzf-tab"
     state: directory
