@@ -80,7 +80,7 @@ alias du='dust'
 alias cat='bat --paging=never'
 alias neofetch='fastfetch -c ~/.config/fastfetch/presets/neofetch.jsonc'
 
-source ~/zsh/plugins/fzf-tab.plugin.zsh
+source ~/.config/zsh/plugins/fzf-tab.plugin.zsh
 
 # Enable zsh-autosuggestions
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
