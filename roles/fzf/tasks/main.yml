@@ -18,9 +18,9 @@
   ansible.builtin.set_fact:
     fzf_latest_release: "{{ fzf_latest_version_json.json.tag_name[1:] }}"
 
-- name: fzf | Registering fzf latest version
-  ansible.builtin.set_fact:
-    fzf_latest_version: "{{ fzf_latest_release.stdout | default('') }}"
+#- name: fzf | Registering fzf latest version
+#  ansible.builtin.set_fact:
+#    fzf_latest_version: "{{ fzf_latest_release.stdout | default('') }}"
 
 - name: fzf | Getting version information
   ansible.builtin.shell:
@@ -34,17 +34,13 @@
   ansible.builtin.set_fact:
     fzf_current_version: "{{ current_fzf_version.stdout }}"
 
-- name: "fzf | Show current_fzf_version debug"
-  ansible.builtin.debug:
-    var: fzf_current_version
+#- name: "fzf | Show current_fzf_version debug"
+#  ansible.builtin.debug:
+#    var: fzf_current_version
 
-- name: "fzf | Show fzf_latest_version debug"
-  ansible.builtin.debug:
-    var: fzf_latest_version
-
-- name: "fzf | Show fzf_latest_release debug"
-  ansible.builtin.debug:
-    var: fzf_latest_release
+#- name: "fzf | Show fzf_latest_release debug"
+#  ansible.builtin.debug:
+#    var: fzf_latest_release
 
 - name: fzf | Install
   when: fzf_latest_release not in fzf_current_version|default('')
