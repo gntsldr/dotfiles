@@ -51,7 +51,7 @@
 
     - name: fzf | Downloading release
       ansible.builtin.get_url:
-        url: https://github.com/junegunn/fzf/releases/download/{{ fzf_latest_release }}/{{ fzf_file }}.tar.gz
+        url: https://github.com/junegunn/fzf/releases/download/v{{ fzf_latest_release }}/{{ fzf_file }}.tar.gz
         dest: /tmp/
         mode: '755'
 
