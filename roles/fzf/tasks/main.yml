@@ -16,11 +16,11 @@
 
 - name: fzf | Registering fzf latest release
   ansible.builtin.set_fact:
-    fzf_latest_release: "{{ fzf_latest_version_json.json.tag_name }}"
+    fzf_latest_release: "{{ fzf_latest_version_json.json.tag_name[1:] }}"
 
 - name: fzf | Registering fzf latest version
   ansible.builtin.set_fact:
-    fzf_latest_version: "{{ fzf_latest_release.stdout[1:] | default('') }}"
+    fzf_latest_version: "{{ fzf_latest_release.stdout | default('') }}"
 
 - name: fzf | Getting version information
   ansible.builtin.shell:
