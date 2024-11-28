@@ -38,6 +38,10 @@
   ansible.builtin.debug:
     var: fzf_current_version
 
+- name: "fzf | Show fzf_latest_version debug"
+  ansible.builtin.debug:
+    var: fzf_latest_version
+
 - name: "fzf | Show fzf_latest_release debug"
   ansible.builtin.debug:
     var: fzf_latest_release
