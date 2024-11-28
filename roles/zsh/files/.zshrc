@@ -68,9 +68,9 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 #alias ls='ls --color=auto'
-alias ls='eza --icons=auto --group-directories-first --group'
-alias ll='eza -la --icons=auto --group-directories-first --group'
-alias tree='eza --tree --icons=auto'
+alias ls='eza --color=always --icons=auto --group-directories-first --group'
+alias ll='eza -la --color=always --icons=auto --group-directories-first --group'
+alias tree='eza --tree --color=always --icons=auto'
 alias df='dysk'
 alias dysk='dysk --units binary'
 alias du='dust'
@@ -86,7 +86,10 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 #source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Completion styling
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+#zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=auto --group-directories-first --group $realpath'
+zstyle ':fzf-tab:complete:eza:*' fzf-preview 'eza -1 --color=always --icons=auto --group-directories-first --group $realpath'
 
 # Autocomplete for Terraform
 complete -o nospace -C /usr/bin/terraform terraform
@@ -105,9 +108,6 @@ function zpipe () {
       zellij pipe -p $1;
    fi
 }
-
-# Alias for dotfile management with git
-#alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
