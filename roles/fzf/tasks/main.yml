@@ -20,19 +20,19 @@
 
 - name: fzf | Registering fzf latest version
   ansible.builtin.set_fact:
-    fzf_latest_version: "{{ fzf_latest_release.stdout | default('') }}"
+    fzf_latest_version: "{{ fzf_latest_release.stdout[1:] | default('') }}"
 
 - name: fzf | Getting version information
   ansible.builtin.shell:
     cmd: |
-      /usr/local/bin/fzf --version | cut -d ' ' -f 2
+      /usr/local/bin/fzf --version | cut -d ' ' -f 1
   register: current_fzf_version
   changed_when: false
   failed_when: false
 
 - name: fzf | Registering fzf Current Version
   ansible.builtin.set_fact:
-    fzf_current_version: "v{{ current_fzf_version.stdout }}"
+    fzf_current_version: "{{ current_fzf_version.stdout }}"
 
 - name: "fzf | Show current_fzf_version debug"
   ansible.builtin.debug:
