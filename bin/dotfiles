@@ -211,6 +211,46 @@ function arch_setup() {
   _cmd "sudo localectl set-locale LANG=en_US.UTF-8"
 }
 
+function nixos_setup() {
+  CONFIG_FILE="/etc/nixos/configuration.nix"
+
+  # Function to add a package to configuration.nix
+  add_to_system_packages() {
+    PACKAGE="$1"
+    if ! grep -q "pkgs.${PACKAGE}" "$CONFIG_FILE"; then
+      _task "Adding ${PACKAGE} to configuration.nix"
+      sudo sed -i "/environment\.systemPackages\s*=\s*with pkgs;/,/];/ s/\(]\)/  pkgs.${PACKAGE}\n\1/" "$CONFIG_FILE"
+    else
+      echo "${PACKAGE} is already in configuration.nix"
+    fi
+  }
+
+  # Ensure Ansible is installed
+  if ! [ -x "$(command -v ansible)" ]; then
+    add_to_system_packages "ansible"
+  fi
+
+  # Ensure Python3 is installed
+  if ! [ -x "$(command -v python3)" ]; then
+    add_to_system_packages "python3"
+  fi
+
+  # Ensure Python3 Pip is installed
+  if ! [ -x "$(command -v pip3)" ]; then
+    add_to_system_packages "python311Packages.pip"
+  fi
+
+  # Python Watchdog library (install via pip, no systemPackages equivalent)
+  if ! pip3 list | grep watchdog >/dev/null 2>&1; then
+    _task "Installing Python3 Watchdog"
+    _cmd "pip3 install watchdog"
+  fi
+
+  # Rebuild system to apply changes
+  _task "Rebuilding system with nixos-rebuild"
+  sudo nixos-rebuild switch
+}
+
 update_ansible_galaxy() {
   local os=$1
   local os_requirements=""
@@ -242,6 +282,9 @@ case $ID in
     ;;
   endeavouros)
     arch_setup
+    ;;
+  nixos)
+    nixos_setup
     ;;
   *)
     _task "Unsupported OS"
