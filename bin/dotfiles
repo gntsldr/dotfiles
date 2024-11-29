@@ -240,10 +240,10 @@ if ! grep -q "pkgs.ansible" /etc/nixos/configuration.nix; then
     add_to_system_packages "python311Packages.pip"
   fi
 
-  # Python Watchdog library (install via pip, no systemPackages equivalent)
-  if ! pip3 list | grep watchdog >/dev/null 2>&1; then
-    _task "Installing Python3 Watchdog"
-    _cmd "pip3 install watchdog --break-system-packages"
+
+  # Python Watchdog library
+  if ! grep -q "python3Packages.watchdog" /etc/nixos/configuration.nix; then
+    add_to_system_packages "python3Packages.watchdog"
   fi
 
   # Rebuild system to apply changes
