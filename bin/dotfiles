@@ -226,17 +226,17 @@ function nixos_setup() {
   }
 
   # Ensure Ansible is installed
-  if ! [ -x "$(command -v ansible)" ]; then
+if ! grep -q "pkgs.ansible" /etc/nixos/configuration.nix; then
     add_to_system_packages "ansible"
   fi
 
   # Ensure Python3 is installed
-  if ! [ -x "$(command -v python3)" ]; then
+  if ! grep -q "pkgs.python3" /etc/nixos/configuration.nix; then
     add_to_system_packages "python3"
   fi
 
   # Ensure Python3 Pip is installed
-  if ! [ -x "$(command -v pip3)" ]; then
+  if ! grep -q "python311Packages.pip" /etc/nixos/configuration.nix; then
     add_to_system_packages "python311Packages.pip"
   fi
 
