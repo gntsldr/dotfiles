@@ -63,7 +63,7 @@ bindkey "\e[1;2C" forward-word #shift+right
 bindkey "\e[1;5D" backward-word #ctrl+left
 bindkey "\e[1;5C" forward-word #ctrl+right
 
-# Add aliases for color
+# Add aliases
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -76,6 +76,7 @@ alias dysk='dysk --units binary'
 alias du='dust'
 alias cat='bat --paging=never'
 alias neofetch='fastfetch -c ~/.config/fastfetch/presets/neofetch.jsonc'
+alias k='kubectl'
 
 source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
 
