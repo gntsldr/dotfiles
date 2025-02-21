@@ -16,6 +16,7 @@
       - git
       - curl
       - wget
+      - tar
     state: present
     update_cache: true
   become: true
