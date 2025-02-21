@@ -10,8 +10,8 @@
 
 - name: Neovim | Download latest release
   ansible.builtin.get_url:
-    url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-    dest: /tmp/nvim-linux64.tar.gz
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+    dest: /tmp/nvim-linux-x86_64.tar.gz
     mode: '755'
 
 - name: Neovim | Check if a previous installation exists
@@ -28,7 +28,7 @@
 
 - name: Neovim | Extract tarball
   ansible.builtin.unarchive:
-    src: /tmp/nvim-linux64.tar.gz
+    src: /tmp/nvim-linux-x86_64.tar.gz
     dest: /opt
     creates: /opt/nvim-linux64/bin/nvim
     remote_src: true
@@ -36,7 +36,7 @@
 
 - name: Neovim | Remove tarball
   ansible.builtin.file:
-    path: /tmp/nvim-linux64.tar.gz
+    path: /tmp/nvim-linux-x86_64.tar.gz
     state: absent
 
 - name: Neovim | Set nvim as vim
