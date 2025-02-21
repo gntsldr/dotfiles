@@ -6,7 +6,7 @@
     mode: '755'
 
 - name: zoxide | Execute installer
-  ansible.builtin.command: sh /tmp/zoxide.sh -y
+  ansible.builtin.command: sh /tmp/zoxide.sh
   args:
     creates: ~/.local/bin/zoxide
 
