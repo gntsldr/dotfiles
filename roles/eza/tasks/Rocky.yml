@@ -1,7 +1,73 @@
 ---
-- name: eza | Install | {{ ansible_distribution }}
-  ansible.builtin.dnf:
-    name:
-      - eza
-    state: present
-  become: true
+- name: eza | Download latest version JSON
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/eza-community/eza/releases/latest
+  register: eza_latest_version_json
+  changed_when: false
+
+- name: eza | Registering eza latest release
+  ansible.builtin.set_fact:
+    eza_latest_release: "{{ eza_latest_version_json.json.tag_name }}"
+
+- name: eza | Registering eza latest version
+  ansible.builtin.set_fact:
+    eza_latest_version: "{{ eza_latest_release.stdout | default('') }}"
+
+- name: eza | Getting version information
+  ansible.builtin.shell:
+    cmd: |
+      /usr/local/bin/eza --version | cut -d ' ' -f 2
+  register: current_eza_version
+  changed_when: false
+  failed_when: false
+
+- name: eza | Registering eza Current Version
+  ansible.builtin.set_fact:
+    eza_current_version: "v{{ current_eza_version.stdout }}"
+
+# - name: "eza | Show current_eza_version debug"
+#   ansible.builtin.debug:
+#     var: eza_current_version
+
+# - name: "eza | Show eza_latest_release debug"
+#   ansible.builtin.debug:
+#     var: eza_latest_release
+
+- name: eza | Install
+  when: eza_latest_release not in eza_current_version|default('')
+  block:
+    - name: eza | Define eza_file
+      ansible.builtin.set_fact:
+        eza_file: "eza_x86_64-unknown-linux-gnu"
+
+    - name: eza | Downloading release
+      ansible.builtin.get_url:
+        url: https://github.com/eza-community/eza/releases/download/{{ eza_latest_release }}/{{ eza_file }}.tar.gz
+        dest: /tmp/
+        mode: '755'
+
+    - name: eza | Check if a previous installation exists
+      ansible.builtin.stat:
+        path: /usr/local/bin/eza
+      register: eza_binary
+
+    - name: eza | Remove current installation
+      ansible.builtin.file:
+        path: /usr/local/bin/eza
+        state: absent
+      become: true
+      when: eza_binary.stat.exists
+
+    - name: eza | Extract tarball
+      ansible.builtin.unarchive:
+        src: /tmp/{{ eza_file }}.tar.gz
+        dest: /usr/local/bin/
+        creates: /usr/local/bin/eza
+        remote_src: true
+      become: true
+
+    - name: eza | Remove tarball
+      ansible.builtin.file:
+        path: /tmp/{{ eza_file }}.tar.gz
+        state: absent
+      become: true
