@@ -177,7 +177,7 @@ function rocky_setup() {
   fi
   if ! pip3 list | grep watchdog >/dev/null 2>&1; then
     _task "Installing Python3 Watchdog"
-    _cmd "pip3 install watchdog --break-system-packages"
+    _cmd "pip3 install watchdog"
   fi
 }
 
@@ -220,29 +220,28 @@ function nixos_setup() {
     if ! grep -q "pkgs.${PACKAGE}" "$CONFIG_FILE"; then
       _task "Adding ${PACKAGE} to configuration.nix"
       sudo sed -i "/environment\.systemPackages\s*=\s*with pkgs;/,/];/ s/\(]\)/  pkgs.${PACKAGE}\n\1/" "$CONFIG_FILE"
-    else
-      echo "${PACKAGE} is already in configuration.nix"
+#    else
+#      echo "${PACKAGE} is already in configuration.nix"
     fi
   }
 
   # Ensure Ansible is installed
-if ! grep -q "pkgs.ansible" /etc/nixos/configuration.nix; then
+  if ! grep -q "pkgs.ansible" "$CONFIG_FILE"; then
     add_to_system_packages "ansible"
   fi
 
   # Ensure Python3 is installed
-  if ! grep -q "pkgs.python3" /etc/nixos/configuration.nix; then
+  if ! grep -q "pkgs.python3" "$CONFIG_FILE"; then
     add_to_system_packages "python3"
   fi
 
   # Ensure Python3 Pip is installed
-  if ! grep -q "python311Packages.pip" /etc/nixos/configuration.nix; then
+  if ! grep -q "python311Packages.pip" "$CONFIG_FILE"; then
     add_to_system_packages "python311Packages.pip"
   fi
 
-
   # Python Watchdog library
-  if ! grep -q "python311Packages.watchdog" /etc/nixos/configuration.nix; then
+  if ! grep -q "python311Packages.watchdog" "$CONFIG_FILE"; then
     add_to_system_packages "python311Packages.watchdog"
   fi
 
