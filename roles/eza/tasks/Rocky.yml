@@ -23,7 +23,7 @@
 
 - name: eza | Registering eza Current Version
   ansible.builtin.set_fact:
-    eza_current_version: "v{{ current_eza_version.stdout }}"
+    eza_current_version: "{{ current_eza_version.stdout }}"
 
 # - name: "eza | Show current_eza_version debug"
 #   ansible.builtin.debug:
