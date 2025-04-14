@@ -227,7 +227,7 @@ symbol = " "
 [kubernetes]
 format = ' on [$symbol($user on )($cluster in )$context \($namespace\)](dimmed green) '
 symbol = '☸ '
-disabled = false
+disabled = true
 
 [kubernetes.context_aliases]
 'dev.local.cluster.k8s' = 'dev'
