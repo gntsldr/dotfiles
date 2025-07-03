@@ -30,7 +30,7 @@
   ansible.builtin.unarchive:
     src: /tmp/nvim-linux-x86_64.tar.gz
     dest: /opt
-    creates: /opt/nvim-linux64/bin/nvim
+    creates: /opt/nvim-linux-x86_64/bin/nvim
     remote_src: true
   become: true
 
@@ -41,7 +41,7 @@
 
 - name: Neovim | Set nvim as vim
   ansible.builtin.command:
-    cmd: update-alternatives --install /usr/bin/vim vim /opt/nvim-linux64/bin/nvim 100
+    cmd: update-alternatives --install /usr/bin/vim vim /opt/nvim-linux-x86_64/bin/nvim 100
     creates: /usr/bin/vim
   become: true
 
