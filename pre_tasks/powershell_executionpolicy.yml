@@ -8,3 +8,4 @@
   changed_when: ps_exec_result.stdout != 'True'
   args:
     executable: powershell.exe
+  ignore_errors: true
