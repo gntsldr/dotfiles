@@ -7,5 +7,4 @@
   register: ps_exec_result
   changed_when: ps_exec_result.stdout != 'True'
   args:
-    executable: powershell.exe
-  ignore_errors: true
+    executable: /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe
