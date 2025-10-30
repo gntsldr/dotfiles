@@ -9,6 +9,7 @@
   ansible.builtin.command: sh /tmp/starship.sh -y
   args:
     creates: /usr/local/bin/starship
+  become: true
 
 - name: Starship | Remove installer
   ansible.builtin.file:
