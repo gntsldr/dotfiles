@@ -193,7 +193,7 @@ bash -c "$(curl -fsSL https://gitlab.com/gntsldr/dotfiles/-/raw/main/bin/dotfile
 If you want to run only a specific role, you can specify the following bash command:
 
 ```bash
-curl -fsSL https://gitlab.com/gntsldr/dotfiles/-/raw/main/bin/dotfiles | bash -s -- --tags comma,seperated,tags
+curl -fsSL https://gitlab.com/gntsldr/dotfiles/-/raw/main/bin/dotfiles | bash -s -- --ask-become-pass --tags comma,seperated,tags
 ```
 
 ### Update
