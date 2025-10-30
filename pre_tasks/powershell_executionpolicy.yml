@@ -6,3 +6,5 @@
     Write-Output ($CurrentPolicy -eq 'RemoteSigned')
   register: ps_exec_result
   changed_when: "'True' not in ps_exec_result.stdout"
+- debug:
+    var: ps_exec_result
