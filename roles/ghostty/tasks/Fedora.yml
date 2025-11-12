@@ -1,5 +1,5 @@
 ---
-- name: Ghostty | Enable ghostty COPR repository | {{ ansible_distribution }}
+- name: Ghostty | Enable Ghostty COPR repository | {{ ansible_distribution }}
   community.general.copr:
     name: scottames/ghostty
     state: enabled
