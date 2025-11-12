@@ -1,0 +1,13 @@
+---
+- name: Ghostty | Enable ghostty COPR repository | {{ ansible_distribution }}
+  community.general.copr:
+    name: scottames/ghostty
+    state: enabled
+  become: true
+
+- name: Ghostty | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - ghostty
+    state: present
+  become: true
