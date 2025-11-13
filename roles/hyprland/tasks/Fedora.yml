@@ -1,4 +1,10 @@
 ---
+- name: Hyprland | Enable Hyprland COPR repository | {{ ansible_distribution }}
+  community.general.copr:
+    name: solopasha/hyprland
+    state: enabled
+  become: true
+
 - name: Hyprland | Install | {{ ansible_distribution }}
   ansible.builtin.dnf:
     name:
