@@ -152,6 +152,10 @@ function fedora_setup() {
     _task "Installing Python3 Pip"
     _cmd "sudo dnf install -y python3-pip"
   fi
+  if ! rpm -q python3-dnf >/dev/null 2>&1; then
+    _task "Installing Python3 DNF"
+    _cmd "sudo dnf install -y python3-dnf"
+  fi
   if ! pip3 list | grep watchdog >/dev/null 2>&1; then
     _task "Installing Python3 Watchdog"
     _cmd "pip3 install watchdog --break-system-packages"
@@ -174,6 +178,10 @@ function rocky_setup() {
   if ! rpm -q python3-pip >/dev/null 2>&1; then
     _task "Installing Python3 Pip"
     _cmd "sudo dnf install -y python3-pip"
+  fi
+  if ! rpm -q python3-dnf >/dev/null 2>&1; then
+    _task "Installing Python3 DNF"
+    _cmd "sudo dnf install -y python3-dnf"
   fi
   if ! pip3 list | grep watchdog >/dev/null 2>&1; then
     _task "Installing Python3 Watchdog"
