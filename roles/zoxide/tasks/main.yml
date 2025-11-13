@@ -1,16 +1,9 @@
 ---
-- name: zoxide | Download installer
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh
-    dest: /tmp/zoxide.sh
-    mode: '755'
+- name: zoxide | Checking for distribution config | {{ ansible_distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+  register: zoxide_distribution_config
 
-- name: zoxide | Execute installer
-  ansible.builtin.command: sh /tmp/zoxide.sh
-  args:
-    creates: ~/.local/bin/zoxide
-
-- name: zoxide | Remove installer
-  ansible.builtin.file:
-    path: /tmp/zoxide.sh
-    state: absent
+- name: zoxide | Run tasks | {{ ansible_distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  when: zoxide_distribution_config.stat.exists

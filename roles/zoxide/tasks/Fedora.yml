@@ -1,0 +1,7 @@
+---
+- name: zoxide | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - zoxide
+    state: present
+  become: true
