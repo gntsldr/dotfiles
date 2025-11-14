@@ -5,7 +5,7 @@
   register: hyprland_distribution_config
 
 - name: Hyprland | Run tasks | {{ ansible_facts.distribution }}
-  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
   when: hyprland_distribution_config.stat.exists
 
 - name: Hyprland | Copy config
