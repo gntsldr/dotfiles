@@ -10,7 +10,7 @@
 
 - name: Fonts | Download Cascadia Code archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.tar.xz"
     dest: /tmp/CascadiaCode.tar.xz
     mode: '755'
 
@@ -36,7 +36,7 @@
 
 - name: Fonts | Download Cascadia Mono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaMono.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.tar.xz"
     dest: /tmp/CascadiaMono.tar.xz
     mode: '755'
 
@@ -62,7 +62,7 @@
 
 - name: Fonts | Download Commit Mono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CommitMono.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CommitMono.tar.xz"
     dest: /tmp/CommitMono.tar.xz
     mode: '755'
 
@@ -88,7 +88,7 @@
 
 - name: Fonts | Download Cousine archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Cousine.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Cousine.tar.xz"
     dest: /tmp/Cousine.tar.xz
     mode: '755'
 
@@ -114,7 +114,7 @@
 
 - name: Fonts | Download Fira Code archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.tar.xz"
     dest: /tmp/FiraCode.tar.xz
     mode: '755'
 
@@ -140,7 +140,7 @@
 
 - name: Fonts | Download Hack archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz"
     dest: /tmp/Hack.tar.xz
     mode: '755'
 
@@ -166,7 +166,7 @@
 
 - name: Fonts | Download iMWriting archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/iA-Writer.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/iA-Writer.tar.xz"
     dest: /tmp/iA-Writer.tar.xz
     mode: '755'
 
@@ -192,7 +192,7 @@
 
 - name: Fonts | Download JetBrains Mono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
     dest: /tmp/JetBrainsMono.tar.xz
     mode: '755'
 
@@ -218,7 +218,7 @@
 
 - name: Fonts | Download Meslo archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.tar.xz"
     dest: /tmp/Meslo.tar.xz
     mode: '755'
 
@@ -244,7 +244,7 @@
 
 - name: Fonts | Download RobotoMono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/RobotoMono.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/RobotoMono.tar.xz"
     dest: /tmp/RobotoMono.tar.xz
     mode: '755'
 
@@ -270,7 +270,7 @@
 
 - name: Fonts | Download Ubuntu archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Ubuntu.tar.xz"
     dest: /tmp/Ubuntu.tar.xz
     mode: '755'
 
@@ -296,7 +296,7 @@
 
 - name: Fonts | Download Ubuntu Mono archive
   ansible.builtin.get_url:
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/UbuntuMono.tar.xz"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/UbuntuMono.tar.xz"
     dest: /tmp/UbuntuMono.tar.xz
     mode: '755'
 
