@@ -1,0 +1,7 @@
+---
+- name: Ghostty | Install | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - ghostty
+    state: present
+  become: true

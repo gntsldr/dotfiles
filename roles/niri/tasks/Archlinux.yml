@@ -1,0 +1,7 @@
+---
+- name: niri | Install | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - niri
+    state: present
+  become: true
