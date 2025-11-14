@@ -2,5 +2,5 @@
 - name: Bash | Copy .bashrc
   ansible.builtin.copy:
     src: "{{ role_path }}/files/.bashrc"
-    dest: "{{ ansible_user_dir }}/.bashrc"
+    dest: "{{ ansible_facts.user_dir }}/.bashrc"
     mode: '644'

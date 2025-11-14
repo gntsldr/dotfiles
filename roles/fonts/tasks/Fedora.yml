@@ -1,5 +1,5 @@
 ---
-- name: Fonts | Install Roboto | {{ ansible_distribution }}
+- name: Fonts | Install Roboto | {{ ansible_facts.distribution }}
   ansible.builtin.dnf:
     name:
       - google-roboto-fonts
