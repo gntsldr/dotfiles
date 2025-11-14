@@ -1,0 +1,7 @@
+---
+- name: niri | Install | {{ ansible_distribution }}
+  ansible.builtin.dnf:
+    name:
+      - niri
+    state: present
+  become: true

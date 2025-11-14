@@ -25,6 +25,7 @@ default_roles:
   - ncdu
 #  - neofetch
   - neovim
+#  - niri
 #  - oxker
 #  - procs
   - ripgrep
