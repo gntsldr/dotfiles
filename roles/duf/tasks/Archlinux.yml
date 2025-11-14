@@ -1,5 +1,5 @@
 ---
-- name: duf | Install | {{ ansible_distribution }}
+- name: duf | Install | {{ ansible_facts.distribution }}
   community.general.pacman:
     name:
       - duf

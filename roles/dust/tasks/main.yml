@@ -1,11 +1,11 @@
 ---
-- name: dust | Checking for Distribution Config | {{ ansible_distribution }}
+- name: dust | Checking for Distribution Config | {{ ansible_facts.distribution }}
   ansible.builtin.stat:
-    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+    path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
   register: dust_distribution_config
 
-- name: dust | Run Tasks | {{ ansible_distribution }}
-  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+- name: dust | Run Tasks | {{ ansible_facts.distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
   when: dust_distribution_config.stat.exists
 
 - name: "dust | Download latest version JSON"

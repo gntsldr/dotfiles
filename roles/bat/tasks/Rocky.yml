@@ -1,5 +1,5 @@
 ---
-- name: bat | Install | {{ ansible_distribution }}
+- name: bat | Install | {{ ansible_facts.istribution }}
   ansible.builtin.dnf:
     name:
       - bat

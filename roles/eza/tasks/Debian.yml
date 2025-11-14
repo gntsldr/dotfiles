@@ -1,5 +1,5 @@
 ---
-- name: eza | Install | {{ ansible_distribution }}
+- name: eza | Install | {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     name: eza
     state: present

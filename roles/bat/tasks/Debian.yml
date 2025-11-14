@@ -1,12 +1,12 @@
 ---
-- name: bat | Install | {{ ansible_distribution }}
+- name: bat | Install | {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     name:
       - bat
     state: present
   become: true
 
-- name: bat | Set batcat as bat | {{ ansible_distribution }}
+- name: bat | Set batcat as bat | {{ ansible_facts.distribution }}
   ansible.builtin.shell:
     cmd: ln -s $(which batcat) ~/.local/bin/bat
     creates: ~/.local/bin/bat
