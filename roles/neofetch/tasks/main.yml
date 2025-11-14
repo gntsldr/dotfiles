@@ -1,9 +1,9 @@
 ---
-- name: Neofetch | Checking for distribution config | {{ ansible_distribution }}
+- name: Neofetch | Checking for distribution config | {{ ansible_facts.distribution }}
   ansible.builtin.stat:
-    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+    path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
   register: neofetch_distribution_config
 
-- name: Neofetch | Run tasks | {{ ansible_distribution }}
-  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+- name: Neofetch | Run tasks | {{ ansible_facts.distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
   when: neofetch_distribution_config.stat.exists

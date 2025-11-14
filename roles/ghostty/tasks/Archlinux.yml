@@ -1,5 +1,5 @@
 ---
-- name: Ghostty | Install | {{ ansible_distribution }}
+- name: Ghostty | Install | {{ ansible_facts.distribution }}
   community.general.pacman:
     name:
       - ghostty

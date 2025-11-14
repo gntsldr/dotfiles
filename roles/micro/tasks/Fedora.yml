@@ -1,5 +1,5 @@
 ---
-- name: micro | Install | {{ ansible_distribution }}
+- name: micro | Install | {{ ansible_facts.distribution }}
   ansible.builtin.dnf:
     name:
       - micro

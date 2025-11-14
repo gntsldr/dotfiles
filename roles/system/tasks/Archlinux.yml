@@ -1,12 +1,12 @@
 ---
-- name: System | Update pacman | {{ ansible_distribution }}
+- name: System | Update pacman | {{ ansible_facts.distribution }}
   community.general.pacman:
     update_cache: true
     upgrade: true
     state: latest
   become: true
 
-- name: System | Install | {{ ansible_distribution }}
+- name: System | Install | {{ ansible_facts.distribution }}
   community.general.pacman:
     name:
       - sudo

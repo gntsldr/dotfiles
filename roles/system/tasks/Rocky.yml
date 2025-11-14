@@ -1,5 +1,5 @@
 ---
-- name: System | Update DNF repos and upgrade DNF packages | {{ ansible_distribution }}
+- name: System | Update DNF repos and upgrade DNF packages | {{ ansible_facts.distribution }}
   ansible.builtin.dnf:
     name: '*'
     update_cache: true
@@ -7,7 +7,7 @@
     state: latest
   become: true
 
-- name: System | Install | {{ ansible_distribution }}
+- name: System | Install | {{ ansible_facts.distribution }}
   ansible.builtin.dnf:
     name:
       - sudo

@@ -1,5 +1,5 @@
 ---
-- name: ncdu | Install | {{ ansible_distribution }}
+- name: ncdu | Install | {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     name:
       - ncdu

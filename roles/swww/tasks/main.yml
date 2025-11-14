@@ -1,9 +1,9 @@
 ---
-- name: swww | Checking for distribution config | {{ ansible_distribution }}
+- name: swww | Checking for distribution config | {{ ansible_facts.distribution }}
   ansible.builtin.stat:
-    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
-  register: tmux_distribution_config
+    path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
+  register: swww_distribution_config
 
-- name: swww | Run tasks | {{ ansible_distribution }}
-  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
-  when: tmux_distribution_config.stat.exists
+- name: swww | Run tasks | {{ ansible_facts.distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
+  when: swww_distribution_config.stat.exists

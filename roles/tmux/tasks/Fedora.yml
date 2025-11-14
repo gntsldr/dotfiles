@@ -1,5 +1,5 @@
 ---
-- name: tmux | Install | {{ ansible_distribution }}
+- name: tmux | Install | {{ ansible_facts.distribution }}
   ansible.builtin.dnf:
     name: tmux
     state: present

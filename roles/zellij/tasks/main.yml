@@ -1,11 +1,11 @@
 ---
-- name: Zellij | Checking for distribution config | {{ ansible_distribution }}
+- name: Zellij | Checking for distribution config | {{ ansible_facts.distribution }}
   ansible.builtin.stat:
-    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+    path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
   register: zellij_distribution_config
 
-- name: Zellij | Run tasks | {{ ansible_distribution }}
-  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+- name: Zellij | Run tasks | {{ ansible_facts.distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
   when: zellij_distribution_config.stat.exists
 
 - name: Zellij | Download latest version JSON
@@ -86,18 +86,18 @@
 - name: Zellij | Copy config
   ansible.builtin.copy:
     src: "{{ role_path }}/files/zellij"
-    dest: "{{ ansible_user_dir }}/.config/"
+    dest: "{{ ansible_facts.user_dir }}/.config/"
     mode: '644'
     directory_mode: '755'
 
 - name: Zellij | Ensures plugins directory exists
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/zellij/plugins"
+    path: "{{ ansible_facts.user_dir }}/.config/zellij/plugins"
     state: directory
     mode: '755'
 
 - name: Zellij | Downloading latest zjstatus release
   ansible.builtin.get_url:
     url: https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm
-    dest: "{{ ansible_user_dir }}/.config/zellij/plugins/"
+    dest: "{{ ansible_facts.user_dir }}/.config/zellij/plugins/"
     mode: '644'

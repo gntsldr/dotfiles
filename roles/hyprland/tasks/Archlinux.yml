@@ -1,5 +1,5 @@
 ---
-- name: Hyprland | Install | {{ ansible_distribution }}
+- name: Hyprland | Install | {{ ansible_facts.distribution }}
   community.general.pacman:
     name:
       - hyprland

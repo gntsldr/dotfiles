@@ -1,5 +1,5 @@
 ---
-- name: Zsh | Install | {{ ansible_distribution }}
+- name: Zsh | Install | {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     name:
       - zsh

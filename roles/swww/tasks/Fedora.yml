@@ -1,11 +1,11 @@
 ---
-- name: swww | Enable swww COPR repository | {{ ansible_distribution }}
+- name: swww | Enable swww COPR repository | {{ ansible_facts.distribution }}
   community.general.copr:
     name: alebastr/sway-extras
     state: enabled
   become: true
 
-- name: swww | Install | {{ ansible_distribution }}
+- name: swww | Install | {{ ansible_facts.distribution }}
   ansible.builtin.dnf:
     name:
       - swww

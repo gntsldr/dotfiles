@@ -1,5 +1,5 @@
 ---
-- name: Neofetch | Install | {{ ansible_distribution }}
+- name: Neofetch | Install | {{ ansible_facts.distribution }}
   community.general.pacman:
     name:
       - neofetch

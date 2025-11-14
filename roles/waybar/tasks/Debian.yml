@@ -1,5 +1,5 @@
 ---
-- name: Waybar | Install | {{ ansible_distribution }}
+- name: Waybar | Install | {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     name:
       - waybar

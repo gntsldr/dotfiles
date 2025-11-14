@@ -1,9 +1,9 @@
 ---
-- name: zoxide | Checking for distribution config | {{ ansible_distribution }}
+- name: zoxide | Checking for distribution config | {{ ansible_facts.distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
   register: zoxide_distribution_config
 
-- name: zoxide | Run tasks | {{ ansible_distribution }}
+- name: zoxide | Run tasks | {{ ansible_facts.distribution }}
   ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
   when: zoxide_distribution_config.stat.exists

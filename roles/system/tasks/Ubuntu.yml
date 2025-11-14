@@ -1,5 +1,5 @@
 ---
-- name: System | Update APT repos and upgrade APT packages| {{ ansible_distribution }}
+- name: System | Update APT repos and upgrade APT packages| {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     update_cache: true
     upgrade: full
@@ -7,7 +7,7 @@
     autoclean: true
   become: true
 
-- name: System | Install | {{ ansible_distribution }}
+- name: System | Install | {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     name:
       - sudo

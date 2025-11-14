@@ -1,5 +1,5 @@
 ---
-- name: wofi | Install | {{ ansible_distribution }}
+- name: wofi | Install | {{ ansible_facts.distribution }}
   community.general.pacman:
     name:
       - wofi

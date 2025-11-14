@@ -1,5 +1,5 @@
 ---
-- name: wofi | Install | {{ ansible_distribution }}
+- name: wofi | Install | {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     name:
       - wofi
