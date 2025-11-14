@@ -2,6 +2,6 @@
 - name: fd | Install | {{ ansible_distribution }}
   community.general.pacman:
     name:
-      - fd-find
+      - fd
     state: present
   become: true
