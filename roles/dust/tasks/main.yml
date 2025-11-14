@@ -47,7 +47,7 @@
   block:
     - name: dust | Define dust_file
       ansible.builtin.set_fact:
-        dust_file: "dust-{{ dust_latest_release }}-{{ ansible_machine }}-unknown-linux-musl"
+        dust_file: "dust-{{ dust_latest_release }}-{{ ansible_facts.machine }}-unknown-linux-musl"
 
     - name: dust | Downloading Release
       ansible.builtin.get_url:
