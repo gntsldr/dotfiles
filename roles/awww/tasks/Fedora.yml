@@ -1,0 +1,13 @@
+---
+- name: awww | Enable COPR repository | {{ ansible_facts.distribution }}
+  community.general.copr:
+    name: scottames/awww
+    state: enabled
+  become: true
+
+- name: awww | Install | {{ ansible_facts.distribution }}
+  ansible.builtin.dnf:
+    name:
+      - awww
+    state: present
+  become: true

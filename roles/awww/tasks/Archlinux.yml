@@ -1,0 +1,7 @@
+---
+- name: awww | Install | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - awww
+    state: present
+  become: true

@@ -2,6 +2,7 @@
 default_roles:
   - system
 #  - alacritty
+# - awww
   - bash
   - bat
   - btop
@@ -32,7 +33,6 @@ default_roles:
 #  - rofi
   - ssh
   - starship
-#  - swww
   - tldr
 #  - tmux
 #  - waybar
