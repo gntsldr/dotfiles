@@ -1,0 +1,16 @@
+---
+- name: matugen | Checking for Distribution Config | {{ ansible_facts.distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
+  register: matugen_distribution_config
+
+- name: matugen | Run Tasks | {{ ansible_facts.distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
+  when: matugen_distribution_config.stat.exists
+
+- name: matugen | Copy config
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/matugen"
+    dest: "{{ ansible_facts.user_dir }}/.config/"
+    mode: '644'
+    directory_mode: '755'

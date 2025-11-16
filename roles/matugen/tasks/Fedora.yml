@@ -1,0 +1,7 @@
+---
+- name: matugen | Install | {{ ansible_facts.distribution }}
+  ansible.builtin.dnf:
+    name:
+      - matugen
+    state: present
+  become: true
