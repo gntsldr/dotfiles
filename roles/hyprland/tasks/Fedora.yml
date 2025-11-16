@@ -9,5 +9,6 @@
   ansible.builtin.dnf:
     name:
       - hyprland
+      - hyprland-devel
     state: present
   become: true
