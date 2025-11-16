@@ -12,6 +12,6 @@
       - hyprland-devel
       - hypridle
       - hyprlock
-      - hyprpaper
+      - hyprpicker
     state: present
   become: true
