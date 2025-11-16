@@ -7,5 +7,6 @@
       - hypridle
       - hyprlock
       - hyprpicker
+      - hyprpolkitagent
     state: present
   become: true
