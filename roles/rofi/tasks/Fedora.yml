@@ -2,6 +2,6 @@
 - name: rofi | Install | {{ ansible_facts.distribution }}
   ansible.builtin.dnf:
     name:
-      - rofi-wayland
+      - rofi
     state: present
   become: true
