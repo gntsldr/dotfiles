@@ -1,0 +1,7 @@
+---
+- name: SwayNC | Install | {{ ansible_distribution }}
+  community.general.pacman:
+    name:
+      - swaync
+    state: present
+  become: true
