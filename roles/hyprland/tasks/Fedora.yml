@@ -10,5 +10,8 @@
     name:
       - hyprland
       - hyprland-devel
+      - hypridle
+      - hyprlock
+      - hyprpaper
     state: present
   become: true
