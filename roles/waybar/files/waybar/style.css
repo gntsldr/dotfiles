@@ -1,5 +1,5 @@
 /* Change desired theme here */
-@import "~/.config/waybar/colors.css";
+@import "colors.css";
 
 * {
     font-family: 'Roboto';
