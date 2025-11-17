@@ -150,8 +150,8 @@
 
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": " ", // "{signalStrength}% ",
-        "format-ethernet": "{ipaddr} 󰈀",
+        "format-wifi": "", // "{signalStrength}% ",
+        "format-ethernet": "󰈀",
         "format-linked": "{ifname} (No IP) 󰈀",
         "format-disconnected":"⚠", // "Disconnected ⚠",
         "tooltip-format": "{ifname} via {gwaddr} 󰈀",
