@@ -34,7 +34,7 @@ output_path = '~/.config/micro/colorschemes/matugen.micro'
 
 [templates.rofi]
 input_path = '~/.config/matugen/templates/rofi-colors.rasi'
-output_path = '~/.config/rofi/colors.rasi'
+output_path = '~/.config/rofi/themes/matugen.rasi'
 
 [templates.starship]
 input_path = '~/.config/matugen/templates/starship-colors.toml'
@@ -42,7 +42,7 @@ output_path = '~/.config/starship.toml'
 
 [templates.waybar]
 input_path = '~/.config/matugen/templates/colors.css'
-output_path = '~/.config/waybar/colors.css'
+output_path = '~/.config/waybar/themes/matugen.css'
 post_hook = 'pkill -SIGUSR2 waybar'
 
 [templates.wlogout]

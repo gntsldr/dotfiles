@@ -1,5 +1,5 @@
 /* Change desired theme here */
-@import "colors.css";
+@import "./themes/matugen.css";
 
 * {
     font-family: 'Roboto';
