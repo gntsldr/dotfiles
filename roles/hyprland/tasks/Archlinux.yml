@@ -7,5 +7,6 @@
       - hyprlock
       - hyprpicker
       - hyprpolkitagent
+      - xdg-desktop-portal-hyprland
     state: present
   become: true
