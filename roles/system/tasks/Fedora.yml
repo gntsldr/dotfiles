@@ -12,7 +12,6 @@
     name:
       - sudo
       - openssh-server
-      - qemu-guest-agent
       - git
       - curl
       - wget
@@ -21,7 +20,7 @@
     update_cache: true
   become: true
 
-- name: System | Remove dependencies that are no longer required
-  ansible.builtin.dnf:
-    autoremove: true
-  become: true
+# - name: System | Remove dependencies that are no longer required
+#   ansible.builtin.dnf:
+#     autoremove: true
+#   become: true
