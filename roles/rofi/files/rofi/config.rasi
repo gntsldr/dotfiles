@@ -17,7 +17,7 @@ configuration {
 }
 
 /* ---- Load colors ---- */
-@import "./themes/colors.rasi"
+@import "./themes/matugen.rasi"
 
 /* ---- Load border width ---- */
 @import "./themes/border.rasi"
