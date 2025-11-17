@@ -1,0 +1,16 @@
+---
+- name: wlogout | Checking for Distribution Config | {{ ansible_facts.distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
+  register: wlogout_distribution_config
+
+- name: wlogout | Run Tasks | {{ ansible_facts.distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
+  when: wlogout_distribution_config.stat.exists
+
+- name: wlogout | Copy Waybar config
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/wlogout"
+    dest: "{{ ansible_facts.user_dir }}/.config/"
+    mode: '644'
+    directory_mode: '755'

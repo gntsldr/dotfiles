@@ -1,0 +1,7 @@
+---
+- name: wlogout | Install | {{ ansible_facts.distribution }}
+  ansible.builtin.dnf:
+    name:
+      - wlogout
+    state: present
+  become: true
