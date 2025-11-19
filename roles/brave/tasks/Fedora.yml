@@ -1,0 +1,20 @@
+---
+- name: Brave | Install dependencies | {{ ansible_facts.distribution }}
+  ansible.builtin.dnf:
+    name:
+      - dnf-plugins-core
+    state: present
+  become: true
+
+- name: Brave | Add repository | {{ ansible_facts.distribution }}
+  ansible.builtin.get_url:
+    url: https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    dest: /etc/yum.repos.d/brave-browser.repo
+    mode: '0644'
+
+- name: Brave | Install | {{ ansible_facts.distribution }}
+  ansible.builtin.dnf:
+    name:
+      - brave-browser
+    state: present
+  become: true

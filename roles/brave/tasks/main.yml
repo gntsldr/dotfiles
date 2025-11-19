@@ -1,0 +1,9 @@
+---
+- name: Brave | Checking for distribution config | {{ ansible_facts.distribution }}
+  ansible.builtin.stat:
+    path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
+  register: brave_distribution_config
+
+- name: Brave | Run tasks | {{ ansible_facts.distribution }}
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
+  when: brave_distribution_config.stat.exists
