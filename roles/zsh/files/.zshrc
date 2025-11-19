@@ -64,9 +64,10 @@ bindkey "\e[1;5D" backward-word #ctrl+left
 bindkey "\e[1;5C" forward-word #ctrl+right
 
 # Add aliases
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias grep='grep --color=auto'
+#alias egrep='egrep --color=auto'
+#alias fgrep='fgrep --color=auto'
+#alias grep='grep --color=auto'
+alias grep='rg'
 #alias ls='ls --color=auto'
 alias ls='eza --color=always --icons=auto --group-directories-first --group'
 alias ll='eza -la --color=always --icons=auto --group-directories-first --group'
