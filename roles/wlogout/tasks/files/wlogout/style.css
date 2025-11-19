@@ -1,12 +1,10 @@
-@import "colors.css";
-
 * {
 	background-image: none;
 	box-shadow: none;
 }
 
 window {
-	background-color: @background;
+	background-color: rgba(12, 12, 12, 0.9);
 }
 
 button {
@@ -23,7 +21,7 @@ button {
 }
 
 button:focus, button:active, button:hover {
-	background-color: @primary;
+	background-color: #3700B3;
 	outline-style: none;
 }
 

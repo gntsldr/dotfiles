@@ -25,7 +25,7 @@ post_hook = 'pkill -SIGUSR2 ghostty'
 
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland-colors.conf'
-output_path = '~/.config/hypr/colors.conf'
+output_path = '~/.config/hypr/config/colors.conf'
 post_hook = 'hyprctl reload'
 
 [templates.micro]
@@ -47,4 +47,4 @@ post_hook = 'pkill -SIGUSR2 waybar'
 
 [templates.wlogout]
 input_path = '~/.config/matugen/templates/colors.css'
-output_path = '~/.config/wlogout/colors.css'
+output_path = '~/.config/wlogout/themes/matugen.css'
