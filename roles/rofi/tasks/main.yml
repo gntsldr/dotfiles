@@ -1,14 +1,14 @@
 ---
-- name: rofi | Checking for Distribution Config | {{ ansible_facts.distribution }}
+- name: Rofi | Checking for Distribution Config | {{ ansible_facts.distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
-  register: tmux_distribution_config
+  register: rofi_distribution_config
 
-- name: rofi | Run Tasks | {{ ansible_facts.distribution }}
+- name: Rofi | Run Tasks | {{ ansible_facts.distribution }}
   ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
-  when: tmux_distribution_config.stat.exists
+  when: rofi_distribution_config.stat.exists
 
-- name: rofi | Copy config
+- name: Rofi | Copy config
   ansible.builtin.copy:
     src: "{{ role_path }}/files/rofi"
     dest: "{{ ansible_facts.user_dir }}/.config/"

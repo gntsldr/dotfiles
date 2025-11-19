@@ -3,5 +3,5 @@
   ansible.builtin.shell:
     cmd: "curl https://getmic.ro | bash"
     chdir: /usr/bin
-    creates: /usr/bin/micro     
-  become: true 
+    creates: /usr/bin/micro
+  become: true

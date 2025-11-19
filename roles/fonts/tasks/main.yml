@@ -2,11 +2,11 @@
 - name: Fonts | Checking for distribution config | {{ ansible_facts.distribution }}
   ansible.builtin.stat:
     path: "{{ role_path }}/tasks/{{ ansible_facts.distribution }}.yml"
-  register: tmux_distribution_config
+  register: fonts_distribution_config
 
 - name: Fonts | Run tasks | {{ ansible_facts.distribution }}
   ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
-  when: tmux_distribution_config.stat.exists
+  when: fonts_distribution_config.stat.exists
 
 - name: Fonts | Download Cascadia Code archive
   ansible.builtin.get_url:

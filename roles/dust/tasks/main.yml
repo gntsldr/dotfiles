@@ -8,7 +8,7 @@
   ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}.yml"
   when: dust_distribution_config.stat.exists
 
-- name: "dust | Download latest version JSON"
+- name: dust | Download latest version JSON
   ansible.builtin.uri:
     url: https://api.github.com/repos/bootandy/dust/releases/latest
   register: dust_latest_version_json

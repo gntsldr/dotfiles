@@ -1,5 +1,5 @@
 ---
-- name: SwayNC | Enable SwayNC COPR repository | {{ ansible_facts.distribution }}
+- name: SwayNC | Enable COPR repository | {{ ansible_facts.distribution }}
   community.general.copr:
     name: erikreider/SwayNotificationCenter
     state: enabled

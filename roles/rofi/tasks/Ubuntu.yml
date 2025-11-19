@@ -1,5 +1,5 @@
 ---
-- name: rofi | Install | {{ ansible_facts.distribution }}
+- name: Rofi | Install | {{ ansible_facts.distribution }}
   ansible.builtin.apt:
     name:
       - rofi
