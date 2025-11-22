@@ -1,5 +1,5 @@
 ---
-- name: awww | Install | {{ ansible_distribution }}
+- name: awww | Install | {{ ansible_facts.distribution }}
   community.general.pacman:
     name:
       - awww
