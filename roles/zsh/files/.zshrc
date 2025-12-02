@@ -85,7 +85,7 @@ source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Enable zsh-syntax-highlighting
-#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
