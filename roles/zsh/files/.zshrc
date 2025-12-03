@@ -82,10 +82,20 @@ alias k='kubectl'
 source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 # Enable zsh-autosuggestions
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+for f in \
+  /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+do
+  [[ -f $f ]] && source "$f" && break
+done
 
 # Enable zsh-syntax-highlighting
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+for f in \
+  /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+do
+  [[ -f $f ]] && source "$f" && break
+done
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
