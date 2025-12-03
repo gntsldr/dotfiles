@@ -113,6 +113,11 @@ function debian_setup() {
 }
 
 function ubuntu_setup() {
+  # Source os-release to get VERSION_ID
+  if [ -f /etc/os-release ]; then
+    source /etc/os-release
+  fi
+
   if ! dpkg -s ansible >/dev/null 2>&1; then
     _task "Installing Ansible"
     _cmd "sudo apt-get update"
