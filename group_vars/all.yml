@@ -13,6 +13,7 @@ default_roles:
   - eza
 #  - fastfetch
   - fd
+#  - fish
 #  - fonts
   - fzf
 #  - ghostty

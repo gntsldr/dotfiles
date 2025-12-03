@@ -1,0 +1,7 @@
+---
+- name: Fish | Install | {{ ansible_facts.distribution }}
+  ansible.builtin.apt:
+    name:
+      - fish
+    state: present
+  become: true

@@ -1,0 +1,7 @@
+---
+- name: Fish | Install | {{ ansible_facts.distribution }}
+  community.general.pacman:
+    name:
+      - fish
+    state: present
+  become: true
