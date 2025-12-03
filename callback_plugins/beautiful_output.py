@@ -70,8 +70,8 @@ import yaml
 from ansible import constants as C
 from ansible import context
 from ansible.executor.task_result import TaskResult
-from ansible.module_utils._text import to_bytes, to_text
-from ansible.module_utils.common._collections_compat import Mapping
+from ansible.module_utils.common.text.converters import to_bytes, to_text
+from collections.abc import Mapping
 from ansible.parsing.utils.yaml import from_yaml
 from ansible.plugins.callback import CallbackBase
 from ansible.template import Templar
