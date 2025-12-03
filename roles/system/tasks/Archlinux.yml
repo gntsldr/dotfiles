@@ -10,10 +10,8 @@
   community.general.pacman:
     name:
       - sudo
-      - openssh
-      - qemu-guest-agent
-      - git
       - curl
       - wget
+      - inetutils
     state: present
   become: true
