@@ -1,4 +1,5 @@
 .dotfiles_run
+.dotfiles.log
 .lock
 vault.secret
 /callback_plugins/__pycache__
