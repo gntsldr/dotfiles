@@ -1,0 +1,12 @@
+---
+- name: Brave | Install | {{ ansible_facts.distribution }}
+  community.general.pacman:
+    name:
+      - brave-bin
+    state: present
+  become: true
+
+- name: Brave | Set brave as brave-browser | {{ ansible_facts.distribution }}
+  ansible.builtin.shell:
+    cmd: ln -s $(which brave) ~/.local/bin/brave-browser
+    creates: ~/.local/bin/brave-browser
