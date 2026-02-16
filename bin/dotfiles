@@ -270,6 +270,22 @@ update_ansible_galaxy() {
   _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yml $os_requirements"
 }
 
+if ! [[ -f "$SSH_DIR/id_ed25519" ]]; then
+  _task "Generating SSH keys"
+  _cmd "mkdir -p $SSH_DIR"
+  _cmd "chmod 700 $SSH_DIR"
+  _cmd "ssh-keygen -o -a 100 -t ed25519 -f $SSH_DIR/id_ed25519 -N '' -C $USER@$HOSTNAME"
+  _cmd "cat $SSH_DIR/id_ed25519.pub >> $SSH_DIR/authorized_keys"
+fi
+
+if ! [[ -d "$DOTFILES_DIR" ]]; then
+  _task "Cloning repository"
+  _cmd "git clone --quiet https://gitlab.com/gntsldr/dotfiles.git $DOTFILES_DIR"
+else
+  _task "Updating repository"
+  _cmd "git -C $DOTFILES_DIR pull --quiet"
+fi
+
 source /etc/os-release
 _task "Loading Setup for detected OS: $ID"
 case $ID in
@@ -299,23 +315,6 @@ case $ID in
     _cmd "echo 'Unsupported OS'"
     ;;
 esac
-
-
-if ! [[ -f "$SSH_DIR/id_ed25519" ]]; then
-  _task "Generating SSH keys"
-  _cmd "mkdir -p $SSH_DIR"
-  _cmd "chmod 700 $SSH_DIR"
-  _cmd "ssh-keygen -o -a 100 -t ed25519 -f $SSH_DIR/id_ed25519 -N '' -C $USER@$HOSTNAME"
-  _cmd "cat $SSH_DIR/id_ed25519.pub >> $SSH_DIR/authorized_keys"
-fi
-
-if ! [[ -d "$DOTFILES_DIR" ]]; then
-  _task "Cloning repository"
-  _cmd "git clone --quiet https://gitlab.com/gntsldr/dotfiles.git $DOTFILES_DIR"
-else
-  _task "Updating repository"
-  _cmd "git -C $DOTFILES_DIR pull --quiet"
-fi
 
 pushd "$DOTFILES_DIR" 2>&1 > /dev/null
 update_ansible_galaxy $ID
