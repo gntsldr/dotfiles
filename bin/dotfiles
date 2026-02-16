@@ -39,7 +39,7 @@ set -e
 VAULT_SECRET="$HOME/.ansible-vault/vault.secret"
 DOTFILES_DIR="$HOME/.dotfiles"
 SSH_DIR="$HOME/.ssh"
-DOTFILES_LOG="$DOTFILES_DIR/.dotfiles.log"
+DOTFILES_LOG="$HOME/.dotfiles.log"
 IS_FIRST_RUN="$DOTFILES_DIR/.dotfiles_run"
 # _header colorize the given argument with spacing
 function _task {
@@ -56,7 +56,6 @@ function _task {
 function _cmd {
   #create log if it doesn't exist
   if ! [[ -f $DOTFILES_LOG ]]; then
-    mkdir -p $DOTFILES_DIR
     touch $DOTFILES_LOG
   fi
   # empty conduro.log
