@@ -24,3 +24,4 @@
   ansible.builtin.dnf:
     name: 'https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/z/zsh-syntax-highlighting-0.8.0-1.el9.noarch.rpm'
     state: present
+  become: true
