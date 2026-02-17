@@ -20,16 +20,7 @@
     mode: '644'
   become: true
 
-- name: Zsh | Ensures zsh-syntax-highlighting directory exists | {{ ansible_facts.distribution }}
-  ansible.builtin.file:
-    path: /usr/share/zsh-syntax-highlighting/
-    state: directory
-    mode: '755'
-  become: true
-
 - name: Zsh | Install zsh-syntax-highlighting | {{ ansible_facts.distribution }}
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/zsh-users/zsh-syntax-highlighting/master/zsh-syntax-highlighting.zsh
-    dest: /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    mode: '644'
-  become: true
+  ansible.builtin.dnf:
+    name: 'https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/z/zsh-syntax-highlighting-0.8.0-1.el9.noarch.rpm'
+    state: present
