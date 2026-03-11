@@ -45,9 +45,9 @@
     creates: /usr/bin/vim
   become: true
 
-- name: Neovim | Copy config
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/nvim"
-    dest: "{{ ansible_facts.user_dir }}/.config/"
-    mode: '644'
-    directory_mode: '755'
+# - name: Neovim | Copy config
+#   ansible.builtin.copy:
+#     src: "{{ role_path }}/files/nvim"
+#     dest: "{{ ansible_facts.user_dir }}/.config/"
+#     mode: '644'
+#     directory_mode: '755'
