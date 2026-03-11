@@ -1,7 +1,7 @@
 ---
 - name: awww | Install | {{ ansible_facts.distribution }}
-  community.general.pacman:
+  kewlfft.aur.aur:
     name:
-      - awww
+      - awww-bin
     state: present
   become: true

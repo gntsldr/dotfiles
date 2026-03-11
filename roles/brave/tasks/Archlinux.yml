@@ -1,6 +1,6 @@
 ---
 - name: Brave | Install | {{ ansible_facts.distribution }}
-  community.general.pacman:
+  kewlfft.aur.aur:
     name:
       - brave-bin
     state: present
