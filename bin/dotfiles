@@ -265,12 +265,26 @@ function nixos_setup() {
 
 update_ansible_galaxy() {
   local os=$1
+  local os_requirements="$DOTFILES_DIR/requirements/$os.yml"
+  local common_requirements="$DOTFILES_DIR/requirements/common.yml"
+  
   _task "Updating Ansible Galaxy"
-  if [ -f "$DOTFILES_DIR/requirements/$os.yml" ]; then
-    _task "${OVERWRITE}Updating Ansible Galaxy with OS Config: $os"
-    _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/$os.yml"
+  
+  # Check if OS-specific requirements file exists and install it
+  if [[ -f "$os_requirements" ]]; then
+    _task "${OVERWRITE}Installing OS-specific requirements: $os"
+    _cmd "ansible-galaxy install -r '$os_requirements'"
+  else
+    _task "${OVERWRITE}No OS-specific requirements found for: $os"
   fi
-  _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yml"
+  
+  # Always install common requirements
+  if [[ -f "$common_requirements" ]]; then
+    _task "${OVERWRITE}Installing common requirements"
+    _cmd "ansible-galaxy install -r '$common_requirements'"
+  else
+    _task "${OVERWRITE}Warning: Common requirements file not found"
+  fi
 }
 
 source /etc/os-release
