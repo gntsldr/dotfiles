@@ -47,7 +47,7 @@
   block:
     - name: delta | Define delta_file
       ansible.builtin.set_fact:
-        delta_file: "delta-{{ delta_latest_release }}-x86_64-unknown-linux-gnu"
+        delta_file: "delta-{{ delta_latest_release }}-x86_64-unknown-linux-musl"
 
     - name: delta | Downloading release
       ansible.builtin.get_url:
